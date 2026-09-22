@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Adoptare — Every Origin Matters</title>
+<meta name="description" content="Adoptare is a nonprofit streetwear brand empowering adoptees and foster youth through clothing initiatives and scholarships. Every origin matters."/>
+<meta property="og:title" content="Adoptare — Every Origin Matters"/>
+<meta property="og:description" content="Empowering adoptees and foster youth through clothing and scholarships. Shop Drop 001 now."/>
+<meta property="og:url" content="https://adoptare.store"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="canonical" href="https://adoptare.store"/>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-867Y091BZV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-867Y091BZV');
+</script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{--black:#0a0a0a;--white:#f5f5f0;--accent:#e8d5b0;--muted:#c8c8c0;--card-bg:#141414;--border:#2a2a2a;}
+  body{background:var(--black);color:var(--white);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;overflow-x:hidden;scroll-behavior:smooth;}
+  a{color:inherit;text-decoration:none;}
+
+  /* COOKIE BANNER */
+  .cookie-banner{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid var(--border);padding:1rem 2.5rem;display:flex;justify-content:space-between;align-items:center;z-index:300;gap:2rem;}
+  .cookie-banner.hidden{display:none;}
+  .cookie-text{font-size:0.72rem;color:var(--muted);line-height:1.6;max-width:600px;}
+  .cookie-text a{color:var(--accent);text-decoration:underline;}
+  .cookie-btns{display:flex;gap:0.75rem;flex-shrink:0;}
+  .cookie-accept{background:var(--white);color:var(--black);border:none;padding:0.5rem 1.25rem;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;cursor:pointer;}
+  .cookie-accept:hover{background:var(--accent);}
+  .cookie-decline{background:none;color:var(--muted);border:1px solid var(--border);padding:0.5rem 1.25rem;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;}
+
+  /* BACK TO TOP */
+  .back-to-top{position:fixed;bottom:5rem;right:2rem;background:var(--white);color:var(--black);border:none;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;z-index:99;opacity:0;transition:opacity 0.3s;font-weight:700;}
+  .back-to-top.visible{opacity:1;}
+  .back-to-top:hover{background:var(--accent);}
+
+  /* CONTACT POPUP */
+  .contact-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;align-items:center;justify-content:center;}
+  .contact-overlay.active{display:flex;}
+  .contact-popup{background:#111;border:1px solid var(--border);max-width:460px;width:90%;padding:2.5rem;position:relative;max-height:90vh;overflow-y:auto;}
+  .contact-popup::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);}
+  .contact-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;}
+  .contact-tag{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;}
+  .contact-title{font-size:1.8rem;font-weight:800;text-transform:uppercase;line-height:0.9;margin-bottom:0.5rem;}
+  .contact-email-label{font-size:0.72rem;letter-spacing:0.1em;color:var(--muted);margin-bottom:1.5rem;}
+  .contact-email-label span{color:var(--accent);}
+  .contact-input{width:100%;background:#0a0a0a;border:1px solid var(--border);color:var(--white);padding:0.85rem 1rem;font-size:0.85rem;font-family:inherit;outline:none;margin-bottom:0.75rem;}
+  .contact-input::placeholder{color:#555;}
+  .contact-textarea{width:100%;background:#0a0a0a;border:1px solid var(--border);color:var(--white);padding:0.85rem 1rem;font-size:0.85rem;font-family:inherit;outline:none;resize:vertical;min-height:130px;margin-bottom:0.75rem;}
+  .contact-textarea::placeholder{color:#555;}
+  .contact-btn{width:100%;background:var(--white);color:var(--black);border:none;padding:0.85rem;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:background 0.2s;}
+  .contact-btn:hover{background:var(--accent);}
+  .contact-msg{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.5rem;display:none;}
+
+  /* SIZE GUIDE POPUP */
+  .size-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;align-items:center;justify-content:center;}
+  .size-overlay.active{display:flex;}
+  .size-popup{background:#111;border:1px solid var(--border);max-width:600px;width:90%;padding:2.5rem;position:relative;max-height:90vh;overflow-y:auto;}
+  .size-popup::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);}
+  .size-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;}
+  .size-title{font-size:1.5rem;font-weight:800;text-transform:uppercase;margin-bottom:0.5rem;}
+  .size-sub{font-size:0.72rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;}
+  .size-table{width:100%;border-collapse:collapse;font-size:0.75rem;}
+  .size-table th{background:#0a0a0a;color:var(--accent);padding:0.65rem 1rem;text-align:left;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;border-bottom:1px solid var(--border);}
+  .size-table td{padding:0.65rem 1rem;color:var(--muted);border-bottom:1px solid #1a1a1a;}
+  .size-table tr:hover td{background:#0f0f0f;}
+  .size-tab{background:none;border:1px solid var(--border);color:var(--muted);padding:0.4rem 1rem;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;margin-right:0.5rem;margin-bottom:1rem;}
+  .size-tab.active{background:var(--white);color:var(--black);border-color:var(--white);}
+
+  /* NEWSLETTER POPUP */
+  .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;align-items:center;justify-content:center;}
+  .popup-overlay.active{display:flex;}
+  .popup{background:#111;border:1px solid var(--border);max-width:420px;width:90%;padding:2.5rem;position:relative;}
+  .popup::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);}
+  .popup-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;}
+  .popup-tag{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;}
+  .popup-title{font-size:1.8rem;font-weight:800;text-transform:uppercase;line-height:0.9;margin-bottom:1rem;}
+  .popup-sub{font-size:0.8rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
+  .popup-input{width:100%;background:#0a0a0a;border:1px solid var(--border);color:var(--white);padding:0.85rem 1rem;font-size:0.85rem;font-family:inherit;outline:none;margin-bottom:0.75rem;}
+  .popup-input::placeholder{color:#555;}
+  .popup-btn{width:100%;background:var(--white);color:var(--black);border:none;padding:0.85rem;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:background 0.2s;}
+  .popup-btn:hover{background:var(--accent);}
+  .popup-msg{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.5rem;display:none;}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2.5rem;border-bottom:1px solid var(--border);background:rgba(10,10,10,0.92);backdrop-filter:blur(8px);}
+  .nav-logo{font-size:1.25rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;}
+  .nav-links{display:flex;gap:1.5rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+  .nav-links span,.nav-links a{cursor:pointer;transition:color 0.2s;}
+  .nav-links span:hover,.nav-links a:hover{color:var(--white);}
+  .nav-cta{font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;border:1px solid var(--accent);color:var(--accent);padding:0.5rem 1.25rem;cursor:pointer;transition:all 0.2s;background:none;}
+  .nav-cta:hover{background:var(--accent);color:var(--black);}
+
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 2.5rem 4rem;position:relative;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,#0f0f0f 0%,#0a0a0a 60%);z-index:0;}
+  .hero-canvas{position:absolute;inset:0;z-index:1;opacity:0.35;}
+  .glitch{position:relative;}
+  .glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;}
+  .glitch::before{left:2px;text-shadow:-2px 0 #e8d5b0;clip:rect(24px,550px,90px,0);animation:glitch-1 3s infinite linear alternate-reverse;}
+  .glitch::after{left:-2px;text-shadow:2px 0 rgba(255,255,255,0.3);clip:rect(85px,550px,140px,0);animation:glitch-2 2.5s infinite linear alternate-reverse;}
+  @keyframes glitch-1{0%{clip:rect(20px,9999px,80px,0);transform:skew(0.5deg);}20%{clip:rect(60px,9999px,100px,0);transform:skew(0.3deg);}40%{clip:rect(10px,9999px,50px,0);transform:skew(0.6deg);}60%{clip:rect(90px,9999px,130px,0);transform:skew(0.2deg);}80%{clip:rect(40px,9999px,70px,0);transform:skew(0.4deg);}100%{clip:rect(5px,9999px,30px,0);transform:skew(0.1deg);}}
+  @keyframes glitch-2{0%{clip:rect(50px,9999px,120px,0);transform:skew(-0.4deg);}25%{clip:rect(30px,9999px,80px,0);transform:skew(-0.6deg);}50%{clip:rect(70px,9999px,110px,0);transform:skew(-0.2deg);}75%{clip:rect(15px,9999px,60px,0);transform:skew(-0.5deg);}100%{clip:rect(85px,9999px,130px,0);transform:skew(-0.3deg);}}
+
+  /* INSTAGRAM FEED */
+  .ig-section{border-top:1px solid var(--border);}
+  .ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-top:2rem;}
+  .ig-item{aspect-ratio:1;overflow:hidden;position:relative;cursor:pointer;}
+  .ig-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s,filter 0.4s;}
+  .ig-item:hover img{transform:scale(1.05);filter:brightness(0.7);}
+  .ig-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s;gap:0.5rem;}
+  .ig-item:hover .ig-overlay{opacity:1;}
+  .ig-likes{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#fff;font-weight:700;}
+  .ig-follow{display:block;margin-top:2rem;text-align:center;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:0.65rem 2rem;width:fit-content;}
+  .hero-tag{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;position:relative;z-index:2;}
+  .hero-title{font-size:clamp(3.5rem,10vw,8rem);font-weight:800;line-height:0.9;text-transform:uppercase;letter-spacing:-0.02em;position:relative;z-index:2;}
+  .hero-title span{display:block;}
+  .hero-title .outline{-webkit-text-stroke:1px var(--white);color:transparent;}
+  .hero-sub{margin-top:2rem;max-width:480px;font-size:0.95rem;color:var(--muted);line-height:1.7;position:relative;z-index:2;}
+  .hero-actions{margin-top:2.5rem;display:flex;gap:1rem;position:relative;z-index:2;}
+  .btn-primary{background:var(--white);color:var(--black);padding:0.85rem 2rem;font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;}
+  .btn-primary:hover{background:var(--accent);}
+  .btn-outline{background:transparent;color:var(--white);padding:0.85rem 2rem;font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;cursor:pointer;border:1px solid var(--border);transition:all 0.2s;}
+  .btn-outline:hover{border-color:var(--white);}
+
+  .marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:0.85rem 0;background:#111;}
+  .marquee-track{display:flex;gap:3rem;white-space:nowrap;animation:marquee 20s linear infinite;}
+  .marquee-track span{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);}
+  .marquee-track .dot{color:var(--accent);}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  section{padding:6rem 2.5rem;}
+  .section-label{font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;}
+  .section-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;text-transform:uppercase;line-height:1;letter-spacing:-0.01em;}
+
+  .mission{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;border-top:1px solid var(--border);}
+  .mission-right{color:var(--muted);font-size:1.05rem;line-height:1.85;}
+  .mission-right strong{color:var(--white);font-weight:500;}
+  .mission-pill{display:inline-block;margin-top:2rem;background:var(--card-bg);border:1px solid var(--border);padding:0.5rem 1.25rem;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);}
+
+  .shop-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2rem;border-top:1px solid var(--border);padding-top:3rem;}
+  .shop-actions{display:flex;gap:1rem;align-items:center;}
+
+  /* SCHOLARSHIP TRACKER */
+  .tracker{background:var(--card-bg);border:1px solid var(--border);padding:2rem;margin-bottom:3rem;}
+  .tracker-label{font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;}
+  .tracker-title{font-size:1rem;font-weight:700;color:var(--white);margin-bottom:1.25rem;}
+  .tracker-bar-wrap{background:#0a0a0a;height:6px;width:100%;margin-bottom:0.75rem;}
+  .tracker-bar{height:6px;background:var(--accent);width:0%;transition:width 1.5s ease;}
+  .tracker-stats{display:flex;justify-content:space-between;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;}
+  .tracker-raised{color:var(--accent);font-weight:700;}
+  .tracker-goal{color:var(--muted);}
+
+  /* SHIPPING */
+  .shipping{background:#0f0f0f;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .shipping-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:3rem;}
+  .shipping-item{background:var(--black);padding:2rem 1.75rem;}
+  .shipping-icon{font-size:1.5rem;margin-bottom:0.75rem;}
+  .shipping-title{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--white);margin-bottom:0.5rem;}
+  .shipping-desc{font-size:0.72rem;color:var(--muted);line-height:1.7;}
+
+  .impact{background:#0f0f0f;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:3rem;}
+  .impact-item{background:var(--black);padding:2.5rem 2rem;}
+  .impact-num{font-size:3.5rem;font-weight:800;line-height:1;color:var(--accent);}
+  .impact-label{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.5rem;}
+
+  .stories-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+  .story-card{background:var(--card-bg);border:1px solid var(--border);padding:1.75rem;}
+  .story-quote{font-size:0.85rem;color:var(--muted);line-height:1.8;margin-bottom:1.25rem;font-style:italic;}
+  .story-author{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);}
+  .story-form{margin-top:3rem;background:var(--card-bg);border:1px solid var(--border);padding:2rem;}
+  .story-form-title{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;}
+  .story-fields{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+  .field input,.field select,.field textarea{width:100%;background:#111;border:1px solid var(--border);color:var(--white);padding:0.85rem 1rem;font-size:0.85rem;font-family:inherit;outline:none;}
+  .field input::placeholder,.field textarea::placeholder{color:#555;}
+  .field textarea{resize:vertical;min-height:100px;}
+
+  .scholarship{border-top:1px solid var(--border);}
+  .scholarship-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+  .scholarship-form{background:var(--card-bg);border:1px solid var(--border);padding:2rem;}
+  .schol-fields{display:flex;flex-direction:column;gap:1rem;}
+
+  .faq{background:#0f0f0f;border-top:1px solid var(--border);}
+  .faq-list{margin-top:3rem;display:flex;flex-direction:column;gap:1px;background:var(--border);}
+  .faq-item{background:var(--black);overflow:hidden;}
+  .faq-q{padding:1.25rem 1.75rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:0.85rem;font-weight:600;letter-spacing:0.05em;}
+  .faq-q:hover{background:#111;}
+  .faq-icon{color:var(--accent);font-size:1.2rem;flex-shrink:0;transition:transform 0.3s;}
+  .faq-icon.open{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height 0.3s ease;}
+  .faq-a.open{max-height:200px;}
+  .faq-a-inner{padding:0 1.75rem 1.25rem;font-size:0.82rem;color:var(--muted);line-height:1.8;}
+
+  .volunteer{border-top:1px solid var(--border);}
+  .volunteer-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+  .volunteer-cards{display:flex;flex-direction:column;gap:1rem;margin-top:2rem;}
+  .vol-card{background:var(--card-bg);border:1px solid var(--border);padding:1.5rem;display:flex;gap:1.25rem;align-items:flex-start;}
+  .vol-icon{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+  .vol-title{font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;}
+  .vol-desc{font-size:0.75rem;color:var(--muted);line-height:1.5;}
+
+  .form-wrap{display:flex;flex-direction:column;gap:1rem;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .field select{appearance:none;cursor:pointer;}
+  .form-submit{background:var(--white);color:var(--black);padding:0.9rem 2rem;font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;cursor:pointer;border:none;width:100%;transition:background 0.2s;}
+  .form-submit:hover{background:var(--accent);}
+
+  /* PRESS */
+  .press{border-top:1px solid var(--border);}
+  .press-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;}
+  .press-card{background:var(--card-bg);border:1px solid var(--border);padding:1.5rem;}
+  .press-source{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem;}
+  .press-quote{font-size:0.78rem;color:var(--muted);line-height:1.7;font-style:italic;}
+
+  footer{border-top:1px solid var(--border);padding:3rem 2.5rem;display:flex;justify-content:space-between;align-items:center;}
+  .footer-logo{font-size:1rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;}
+  .footer-tagline{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);}
+  .footer-links{display:flex;gap:2rem;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+  .footer-links span{cursor:pointer;}
+  .footer-links span:hover,.footer-links a:hover{color:var(--white);}
+
+  @media(max-width:768px){
+    nav{padding:1rem 1.25rem;}
+    .nav-links{display:none;}
+    .hero{padding:0 1.25rem 3rem;}
+    section{padding:4rem 1.25rem;}
+    .mission,.volunteer-inner,.scholarship-inner{grid-template-columns:1fr;gap:2.5rem;}
+    .impact-grid,.shipping-grid{grid-template-columns:1fr;}
+    .stories-grid,.press-grid{grid-template-columns:1fr;}
+    .story-fields,.form-row{grid-template-columns:1fr;}
+    footer{flex-direction:column;gap:1.5rem;text-align:center;}
+    .footer-links{flex-wrap:wrap;justify-content:center;}
+    .cookie-banner{flex-direction:column;align-items:flex-start;}
+  }
+  @media(max-width:480px){.hero-actions{flex-direction:column;}}
+
+  /* LOCAL SHOPIFY MOCK */
+  .mock-product-card{background:var(--card-bg);border:1px solid var(--border);overflow:hidden;}
+  .mock-product-image{aspect-ratio:1/1;background:linear-gradient(135deg,#181818,#0d0d0d);display:flex;align-items:center;justify-content:center;color:#666;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;}
+  .mock-product-info{padding:1.25rem;}
+  .mock-product-name{font-size:0.8rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.5rem;}
+  .mock-product-price{font-size:0.8rem;color:var(--accent);margin-bottom:0.5rem;}
+  .mock-product-id{font-size:0.55rem;color:#666;word-break:break-all;margin-bottom:1rem;}
+  .mock-add{width:100%;background:var(--white);color:var(--black);border:0;padding:0.75rem;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;cursor:pointer;}
+  .mock-add:hover{background:var(--accent);}
+
+
+  .local-mock-notice{position:fixed;top:4.5rem;right:1rem;z-index:250;background:#111;border:1px solid var(--accent);color:var(--accent);padding:0.55rem 0.8rem;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;}
+
+</style>
+</head>
+<body>
+<div class="local-mock-notice">LOCAL MOCK · SHOPIFY DISABLED</div>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookie-banner">
+  <div class="cookie-text">We use cookies to improve your experience on our site. By continuing to browse, you agree to our use of cookies. <a href="#">Learn more</a></div>
+  <div class="cookie-btns">
+    <button class="cookie-accept" onclick="acceptCookies()">Accept</button>
+    <button class="cookie-decline" onclick="declineCookies()">Decline</button>
+  </div>
+</div>
+
+<button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- CONTACT POPUP -->
+<div class="contact-overlay" id="contact-popup">
+  <div class="contact-popup">
+    <button class="contact-close" onclick="document.getElementById('contact-popup').classList.remove('active')">✕</button>
+    <div class="contact-tag">Get in Touch · Adoptare Est. 2026</div>
+    <div class="contact-title">Contact Us.</div>
+    <div class="contact-email-label">Reach us at <span>adoptareinfo@gmail.com</span></div>
+    <input class="contact-input" type="text" id="c-name" placeholder="Your name"/>
+    <input class="contact-input" type="email" id="c-email" placeholder="Your email address"/>
+    <input class="contact-input" type="text" id="c-subject" placeholder="Subject"/>
+    <textarea class="contact-textarea" id="c-message" placeholder="Your message..."></textarea>
+    <button class="contact-btn" onclick="submitContact()">Send Message →</button>
+    <p class="contact-msg" id="contact-msg"></p>
+  </div>
+</div>
+
+<!-- SIZE GUIDE POPUP -->
+<div class="size-overlay" id="size-popup">
+  <div class="size-popup">
+    <button class="size-close" onclick="document.getElementById('size-popup').classList.remove('active')">✕</button>
+    <div class="section-label">Adoptare</div>
+    <div class="size-title">Size Guide</div>
+    <div class="size-sub">All measurements are in inches. For the best fit, measure yourself and compare to the size chart below. When between sizes, we recommend sizing up.</div>
+    <div>
+      <button class="size-tab active" onclick="showSizeTab('unisex',this)">Unisex Tees & Hoodie</button>
+      <button class="size-tab" onclick="showSizeTab('womens',this)">Women's Tee</button>
+      <button class="size-tab" onclick="showSizeTab('polo',this)">Polo</button>
+      <button class="size-tab" onclick="showSizeTab('cap',this)">Cap & Accessories</button>
+    </div>
+    <div id="tab-unisex">
+      <table class="size-table"><thead><tr><th>Size</th><th>Chest</th><th>Length</th><th>Sleeve</th></tr></thead><tbody>
+        <tr><td>S</td><td>36–38"</td><td>27"</td><td>33"</td></tr>
+        <tr><td>M</td><td>38–40"</td><td>28"</td><td>34"</td></tr>
+        <tr><td>L</td><td>40–42"</td><td>29"</td><td>35"</td></tr>
+        <tr><td>XL</td><td>42–44"</td><td>30"</td><td>36"</td></tr>
+        <tr><td>2XL</td><td>44–46"</td><td>31"</td><td>37"</td></tr>
+      </tbody></table>
+    </div>
+    <div id="tab-womens" style="display:none;">
+      <table class="size-table"><thead><tr><th>Size</th><th>Bust</th><th>Waist</th><th>Length</th></tr></thead><tbody>
+        <tr><td>XS</td><td>32–33"</td><td>24–25"</td><td>25"</td></tr>
+        <tr><td>S</td><td>34–35"</td><td>26–27"</td><td>26"</td></tr>
+        <tr><td>M</td><td>36–37"</td><td>28–29"</td><td>27"</td></tr>
+        <tr><td>L</td><td>38–40"</td><td>30–32"</td><td>28"</td></tr>
+        <tr><td>XL</td><td>41–43"</td><td>33–35"</td><td>29"</td></tr>
+      </tbody></table>
+    </div>
+    <div id="tab-polo" style="display:none;">
+      <table class="size-table"><thead><tr><th>Size</th><th>Chest</th><th>Length</th></tr></thead><tbody>
+        <tr><td>S</td><td>36–38"</td><td>27"</td></tr>
+        <tr><td>M</td><td>38–40"</td><td>28"</td></tr>
+        <tr><td>L</td><td>40–42"</td><td>29"</td></tr>
+        <tr><td>XL</td><td>42–44"</td><td>30"</td></tr>
+        <tr><td>2XL</td><td>44–46"</td><td>31"</td></tr>
+      </tbody></table>
+    </div>
+    <div id="tab-cap" style="display:none;">
+      <table class="size-table"><thead><tr><th>Item</th><th>Details</th></tr></thead><tbody>
+        <tr><td>5 Panel Cap</td><td>Adjustable snap closure — one size fits most</td></tr>
+        <tr><td>Tote Bag</td><td>16″ × 14½″ × 5″ · 30 lb weight limit</td></tr>
+        <tr><td>Stickers</td><td>Standard size — see product listing for dimensions</td></tr>
+      </tbody></table>
+    </div>
+    <p style="font-size:0.65rem;color:var(--muted);margin-top:1.25rem;line-height:1.6;">Questions about sizing? Email us at <span style="color:var(--accent);">adoptareinfo@gmail.com</span></p>
+  </div>
+</div>
+
+<!-- NEWSLETTER POPUP -->
+<div class="popup-overlay" id="newsletter-popup">
+  <div class="popup">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <div class="popup-tag">Join the Movement · Adoptare Est. 2026</div>
+    <div class="popup-title">Stay in the Loop.</div>
+    <div class="popup-sub">Be the first to know about new drops, scholarships, and everything Adoptare. No spam — just the movement.</div>
+    <input class="popup-input" type="email" id="popup-email" placeholder="Your email address"/>
+    <button class="popup-btn" onclick="submitPopup()">Notify Me →</button>
+    <p class="popup-msg" id="popup-msg"></p>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Adoptare</div>
+  <div class="nav-links">
+    <span onclick="scroll2('founder')">Founder</span>
+    <span onclick="scroll2('mission')">Mission</span>
+    <span onclick="scroll2('shop')">Shop</span>
+    <span onclick="scroll2('impact')">Impact</span>
+    <span onclick="scroll2('stories')">Stories</span>
+    <span onclick="scroll2('scholarship')">Scholarship</span>
+    <span onclick="scroll2('faq')">FAQ</span>
+    <span onclick="scroll2('volunteer')">Volunteer</span>
+    <a href="https://www.instagram.com/adoptare_est2026" target="_blank">Instagram</a>
+    <span onclick="document.getElementById('contact-popup').classList.add('active')">Contact</span>
+  </div>
+  <button class="nav-cta" onclick="window.open('https://venmo.com/Adoptare','_blank')">Donate</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <canvas class="hero-noise" id="noise-canvas"></canvas>
+  <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,transparent 60%,#0a0a0a 100%);"></div>
+  <div class="hero-tag">Est. 2026 · Nonprofit Clothing</div>
+  <h1 class="hero-title">
+    <span>Wear</span>
+    <span class="outline">Your</span>
+    <span>Story.</span>
+  </h1>
+  <p class="hero-sub">Empowering adoptees and foster youth through clothing initiatives and scholarships. Your origins matter. Your story is worth celebrating.</p>
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="scroll2('shop')">Shop the Drop</button>
+    <button class="btn-outline" onclick="scroll2('mission')">Our Mission</button>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Wear Your Story</span><span class="dot">✦</span><span>Adoptare Est. 2026</span><span class="dot">✦</span><span>Empowering Adoptees</span><span class="dot">✦</span><span>Foster Youth First</span><span class="dot">✦</span><span>Scholarships Through Style</span><span class="dot">✦</span><span>Your Origins Matter</span><span class="dot">✦</span><span>Wear Your Story</span><span class="dot">✦</span><span>Adoptare Est. 2026</span><span class="dot">✦</span><span>Empowering Adoptees</span><span class="dot">✦</span><span>Foster Youth First</span><span class="dot">✦</span><span>Scholarships Through Style</span><span class="dot">✦</span><span>Your Origins Matter</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- FOUNDER -->
+<section id="founder" style="border-top:1px solid var(--border);">
+  <div style="max-width:680px;">
+    <div class="section-label">The Founder</div>
+    <h2 class="section-title" style="margin-bottom:0.75rem;">Tristan Stuetzel.</h2>
+    <div style="font-size:0.72rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:2.5rem;">Founder & Director · Chico State, Class of '29 · First-Generation College Student</div>
+    <div style="font-size:1rem;line-height:1.95;color:var(--muted);">
+      <p>At 5 years old, I was taken by social services. My little brother was 1. We bounced from placement to placement — two kids with no certainty of where we'd end up, growing up in motels, not knowing what came next.</p><br/>
+      <p>We got lucky. A family took us both in and gave us opportunities we couldn't have imagined. I can't give them enough credit. They changed our trajectory completely.</p><br/>
+      <p>But we have another little brother who didn't come with us. He's still out there — one of the kids the system leaves behind. <span style="color:var(--white);">He's the reason Adoptare exists.</span></p><br/>
+      <p>From a young age I was told I was different — that I wouldn't graduate high school, that I'd end up a statistic. I refused to believe it. I broke the cycle. I'm now a 19-year-old first-generation college student at Chico State, and everything I do is to prove to my brothers that we are not defined by what happened to us.</p><br/>
+      <p style="color:var(--white);font-size:1.05rem;font-weight:500;border-left:2px solid var(--accent);padding-left:1.25rem;line-height:1.7;">"We are not doomed by our story. It's our origin that defines us — and every foster kid and adoptee should be proud enough to wear it."</p>
+      <br/>
+      <p style="color:var(--muted);font-size:0.85rem;font-style:italic;border-top:1px solid var(--border);padding-top:1.5rem;">This is for my little brother David — we were told we'd never amount to anything. I need you to know that nothing we went through changes what we are capable of. Don't give up. This one's for you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section id="mission">
+  <div class="mission">
+    <div>
+      <div class="section-label">Our Mission</div>
+      <h2 class="section-title">More Than Clothing.</h2>
+      <div class="mission-pill">Adoptare — To Adopt</div>
+    </div>
+    <div class="mission-right">
+      <p>Adoptare exists to <strong>empower adopted youth</strong> by providing scholarships funded through clothing initiatives. We believe that every young person deserves to step into their future with confidence, resources, and a community behind them.</p><br/>
+      <p>We celebrate adoption as a core part of identity — not something to be hidden, but something to be <strong>worn with pride</strong>. Every piece you purchase directly funds educational opportunities for adoptees and foster kids nationwide.</p><br/>
+      <p><strong>Your origins matter. Your story is power.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section id="shop">
+  <div class="shop-header">
+    <div>
+      <div class="section-label">Drop 001</div>
+      <h2 class="section-title">The Collection.</h2>
+    </div>
+    <div class="shop-actions">
+      <button class="btn-outline" onclick="document.getElementById('size-popup').classList.add('active')">Size Guide</button>
+      <button class="btn-outline" onclick="window.open('https://adoptare.store','_blank')">View All</button>
+    </div>
+  </div>
+
+  <!-- SCHOLARSHIP TRACKER -->
+  <div class="tracker">
+    <div class="tracker-label">The David Scholarship Fund</div>
+    <div class="tracker-title">Every purchase brings us closer to awarding our first scholarship.</div>
+    <div class="tracker-bar-wrap"><div class="tracker-bar" id="tracker-bar"></div></div>
+    <div class="tracker-stats">
+      <span class="tracker-raised" id="tracker-raised">$0 raised</span>
+      <span class="tracker-goal">Goal: $1,000 — First Scholarship</span>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+    <div id='product-component-1778992578681'></div>
+    <div id='product-component-1778992480664'></div>
+    <div id='product-component-1778992541724'></div>
+    <div id='product-component-1778992433535'></div>
+    <div id='product-component-1778994271327'></div>
+    <div id='product-component-1779217065799'></div>
+    <div id='product-component-1779217881117'></div>
+    <div id='product-component-1784338568619'></div>
+    <div id='product-component-1784338615764'></div>
+    <div id='product-component-1784338640229'></div>
+  </div>
+  <script>
+  // LOCAL MOCK ONLY:
+  // This replaces the Shopify Buy Button integration so the theme can be
+  // previewed without Shopify Admin/backend access.
+  const mockProducts = [
+    { id: '7663616819267', name: 'Adoptare Product 1', price: '$40.00' },
+    { id: '7663613149251', name: 'Adoptare Product 2', price: '$40.00' },
+    { id: '7663617376323', name: 'Adoptare Product 3', price: '$40.00' },
+    { id: '7663635726403', name: 'Adoptare Product 4', price: '$40.00' },
+    { id: '7663637266499', name: 'Adoptare Product 5', price: '$40.00' },
+    { id: '7663648702531', name: 'Adoptare Product 6', price: '$40.00' },
+    { id: '7664784900163', name: 'Adoptare Product 7', price: '$40.00' },
+    { id: '7760643162179', name: 'Adoptare Product 8', price: '$40.00' },
+    { id: '7760643522627', name: 'Adoptare Product 9', price: '$40.00' },
+    { id: '7760643620931', name: 'Adoptare Product 10', price: '$40.00' }
+  ];
+
+  const productGrid = document.querySelector('#shop > div[style*="grid-template-columns"]');
+
+  if (productGrid) {
+    productGrid.innerHTML = mockProducts.map(product => `
+      <article class="mock-product-card">
+        <div class="mock-product-image">
+          <span>LOCAL MOCK</span>
+        </div>
+        <div class="mock-product-info">
+          <div class="mock-product-name">${product.name}</div>
+          <div class="mock-product-price">${product.price}</div>
+          <div class="mock-product-id">Shopify ID: ${product.id}</div>
+          <button class="mock-add" onclick="mockAddToCart('${product.id}')">
+            Add to cart
+          </button>
+        </div>
+      </article>
+    `).join('');
+  }
+
+  function mockAddToCart(id) {
+    alert('Local mock only\\n\\nProduct ' + id + ' would be added to the Shopify cart on the real site.');
+  }
+  </script>
+
+</section>
+
+<!-- SHIPPING -->
+<section id="shipping" class="shipping">
+  <div class="section-label">Shipping & Returns</div>
+  <h2 class="section-title">We've Got You Covered.</h2>
+  <div class="shipping-grid">
+    <div class="shipping-item">
+      <div class="shipping-icon">📦</div>
+      <div class="shipping-title">Standard Shipping</div>
+      <div class="shipping-desc">Orders typically ship within 3–5 business days. Standard delivery takes 5–8 business days within the US. International shipping available at checkout.</div>
+    </div>
+    <div class="shipping-item">
+      <div class="shipping-icon">🔄</div>
+      <div class="shipping-title">Returns & Exchanges</div>
+      <div class="shipping-desc">Not happy with your order? Contact us within 14 days of delivery at adoptareinfo@gmail.com and we'll make it right. Items must be unworn and in original condition.</div>
+    </div>
+    <div class="shipping-item">
+      <div class="shipping-icon">💳</div>
+      <div class="shipping-title">Secure Checkout</div>
+      <div class="shipping-desc">All orders are processed securely through Shopify. We accept all major credit cards, Apple Pay, Google Pay, and Shop Pay.</div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact" class="impact">
+  <div class="section-label">Why It Matters</div>
+  <h2 class="section-title">The Numbers.</h2>
+  <div class="impact-grid">
+    <div class="impact-item"><div class="impact-num counter" data-target="400" data-suffix="K+">0</div><div class="impact-label">Children in US foster care right now</div></div>
+    <div class="impact-item"><div class="impact-num counter" data-target="15" data-suffix="K">0</div><div class="impact-label">Youth age out each year with no permanent family</div></div>
+    <div class="impact-item"><div class="impact-num counter" data-target="100" data-suffix="%">0</div><div class="impact-label">Of proceeds fund scholarships</div></div>
+    <div class="impact-item"><div class="impact-num counter" data-target="20" data-suffix="%">0</div><div class="impact-label">Become homeless the night they turn 18</div></div>
+    <div class="impact-item"><div class="impact-num" style="font-size:2.5rem;">&lt;3%</div><div class="impact-label">Ever earn a college degree</div></div>
+    <div class="impact-item"><div class="impact-num counter" data-target="7" data-suffix="x">0</div><div class="impact-label">Higher rates of depression & anxiety than peers</div></div>
+  </div>
+</section>
+
+<!-- STORIES -->
+<section id="stories" style="border-top:1px solid var(--border);">
+  <div class="section-label">Community</div>
+  <h2 class="section-title">Your Stories.</h2>
+  <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-top:1rem;max-width:560px;">Every origin matters. Share yours — adoptee, foster youth, advocate, or ally. This is your space.</p>
+  <div class="stories-grid">
+    <div class="story-card"><div class="story-quote">"I aged out at 18 with nothing. Finding a community that celebrates where I came from instead of hiding it changed everything for me."</div><div class="story-author">Former Foster Youth · California</div></div>
+    <div class="story-card"><div class="story-quote">"I was always told my adoption was something to be ashamed of. Adoptare made me realize my story is my strength."</div><div class="story-author">Adoptee · Texas</div></div>
+    <div class="story-card"><div class="story-quote">"As an adoptive parent I've watched my kids struggle with identity. A brand that tells them their origins matter means the world to our family."</div><div class="story-author">Adoptive Parent · Oregon</div></div>
+  </div>
+  <div class="story-form">
+    <div class="story-form-title">Share Your Story</div>
+    <div class="story-fields">
+      <div class="field"><input type="text" id="sname" placeholder="Your name or alias"/></div>
+      <div class="field"><input type="text" id="slocation" placeholder="City, State (optional)"/></div>
+    </div>
+    <div class="field" style="margin-bottom:1rem;"><textarea id="sstory" placeholder="Share your story in your own words..." style="min-height:120px;width:100%;background:#111;border:1px solid var(--border);color:var(--white);padding:0.85rem 1rem;font-size:0.85rem;font-family:inherit;outline:none;resize:vertical;"></textarea></div>
+    <button class="form-submit" style="width:auto;padding:0.85rem 2rem;" onclick="submitStory()">Submit Your Story →</button>
+    <p id="story-msg" style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.75rem;display:none;"></p>
+  </div>
+</section>
+
+<!-- INSTAGRAM FEED -->
+<section class="ig-section">
+  <div class="section-label">Instagram</div>
+  <h2 class="section-title">Follow the Movement.</h2>
+  <p style="color:var(--muted);font-size:0.9rem;line-height:1.8;margin-top:1rem;">@adoptare_est2026 · 276 followers</p>
+  <div class="ig-grid">
+    <a href="https://www.instagram.com/p/DYYBCAXEnXz/" target="_blank" class="ig-item">
+      <img src="https://hop.behold.pictures/eyJ1IjoidWp2QjdSWTBVU2RXNlJBWkZOY3FLdmNTeGV4MiIsImYiOiJIOFFOc1daTzIzVHdjSk9qR0NDSCIsInAiOiIxODM0OTMwNDg1MTIxMDYwMiIsImgiOiIxN2g1Y293In0.jpg?class=originalMedium" alt="Adoptare x Georgia Kids Belong"/>
+      <div class="ig-overlay"><div class="ig-likes">♥ 17 · View Post</div></div>
+    </a>
+    <a href="https://www.instagram.com/p/DYYBCAXEnXz/" target="_blank" class="ig-item">
+      <img src="https://hop.behold.pictures/eyJ1IjoidWp2QjdSWTBVU2RXNlJBWkZOY3FLdmNTeGV4MiIsImYiOiJIOFFOc1daTzIzVHdjSk9qR0NDSCIsInAiOiIxODM0OTMwNDg1MTIxMDYwMiIsImgiOiJ0MXJuODAiLCJjIjoiMTgzOTIxNzYzMzkwODM4MTgifQ.jpg?class=originalMedium" alt="Adoptare tote bag"/>
+      <div class="ig-overlay"><div class="ig-likes">♥ 17 · View Post</div></div>
+    </a>
+    <a href="https://www.instagram.com/p/DWpDr04km-Q/" target="_blank" class="ig-item">
+      <img src="https://hop.behold.pictures/eyJ1IjoidWp2QjdSWTBVU2RXNlJBWkZOY3FLdmNTeGV4MiIsImYiOiJIOFFOc1daTzIzVHdjSk9qR0NDSCIsInAiOiIxODEzOTczNjg3NTQ0Njc0NyIsImgiOiIxbXdkOWozIn0.jpg?class=originalMedium" alt="Adoptare launch post"/>
+      <div class="ig-overlay"><div class="ig-likes">♥ 29 · View Post</div></div>
+    </a>
+    <a href="https://www.instagram.com/p/DWpDr04km-Q/" target="_blank" class="ig-item">
+      <img src="https://hop.behold.pictures/eyJ1IjoidWp2QjdSWTBVU2RXNlJBWkZOY3FLdmNTeGV4MiIsImYiOiJIOFFOc1daTzIzVHdjSk9qR0NDSCIsInAiOiIxODEzOTczNjg3NTQ0Njc0NyIsImgiOiIxeDI3cm1tIiwiYyI6IjE3OTIxMTMzOTkzMjk5MTMyIn0.jpg?class=originalMedium" alt="Adoptare clothing"/>
+      <div class="ig-overlay"><div class="ig-likes">♥ 29 · View Post</div></div>
+    </a>
+    <a href="https://www.instagram.com/p/DWpDr04km-Q/" target="_blank" class="ig-item">
+      <img src="https://hop.behold.pictures/eyJ1IjoidWp2QjdSWTBVU2RXNlJBWkZOY3FLdmNTeGV4MiIsImYiOiJIOFFOc1daTzIzVHdjSk9qR0NDSCIsInAiOiIxODEzOTczNjg3NTQ0Njc0NyIsImgiOiIxcDR4bzEzIiwiYyI6IjE3OTIzNDc1MjgwMjcyMzI2In0.jpg?class=originalMedium" alt="Adoptare green hoodie"/>
+      <div class="ig-overlay"><div class="ig-likes">♥ 29 · View Post</div></div>
+    </a>
+    <a href="https://www.instagram.com/adoptare_est2026" target="_blank" class="ig-item" style="background:#111;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.75rem;">
+      <div style="font-size:2rem;color:var(--accent);">+</div>
+      <div style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);">Follow Us</div>
+      <div style="font-size:0.6rem;letter-spacing:0.1em;color:var(--accent);">@adoptare_est2026</div>
+    </a>
+  </div>
+  <a href="https://www.instagram.com/adoptare_est2026" target="_blank" class="ig-follow">Follow @adoptare_est2026 →</a>
+</section>
+
+<!-- SCHOLARSHIP -->
+<section id="scholarship" class="scholarship">
+  <div class="scholarship-inner">
+    <div>
+      <div class="section-label">The David Scholarship</div>
+      <h2 class="section-title">Apply for the<br/>David Scholarship.</h2>
+      <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-top:1.5rem;">The David Scholarship is named after my little brother David. We grew up being told we'd never amount to anything. This scholarship exists to prove that wrong — for him, and for every adoptee and foster youth who was told the same thing. Where you come from does not determine where you're going.</p>
+      <br/>
+      <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;">Scholarships are need-based and awarded to individuals who demonstrate financial need and a commitment to their education.</p>
+      <div style="margin-top:2rem;display:flex;flex-direction:column;gap:1rem;">
+        <div style="background:var(--card-bg);border:1px solid var(--border);padding:1.25rem;display:flex;gap:1rem;align-items:flex-start;">
+          <div style="width:32px;height:32px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0;">✓</div>
+          <div><div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.25rem;">Who Qualifies</div><div style="font-size:0.72rem;color:var(--muted);line-height:1.5;">Current or former foster youth and adoptees pursuing post-secondary education.</div></div>
+        </div>
+        <div style="background:var(--card-bg);border:1px solid var(--border);padding:1.25rem;display:flex;gap:1rem;align-items:flex-start;">
+          <div style="width:32px;height:32px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0;">$</div>
+          <div><div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.25rem;">Award Amount</div><div style="font-size:0.72rem;color:var(--muted);line-height:1.5;">Scholarship amounts grow with revenue. Every sale brings us closer to the next award.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="scholarship-form">
+      <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;">The David Scholarship Application</div>
+      <div class="schol-fields">
+        <div class="form-row">
+          <div class="field"><input type="text" id="sc-fname" placeholder="First name"/></div>
+          <div class="field"><input type="text" id="sc-lname" placeholder="Last name"/></div>
+        </div>
+        <div class="field"><input type="email" id="sc-email" placeholder="Email address"/></div>
+        <div class="field"><input type="text" id="sc-school" placeholder="School or program attending/applying to"/></div>
+        <div class="field">
+          <select id="sc-type" style="width:100%;background:#111;border:1px solid var(--border);color:var(--white);padding:0.85rem 1rem;font-size:0.85rem;font-family:inherit;outline:none;appearance:none;">
+            <option value="" disabled selected>I identify as...</option>
+            <option>Adoptee</option>
+            <option>Current foster youth</option>
+            <option>Former foster youth</option>
+            <option>Both adoptee and former foster youth</option>
+          </select>
+        </div>
+        <div class="field"><textarea id="sc-story" placeholder="Tell us your story and why you're applying..." style="width:100%;background:#111;border:1px solid var(--border);color:var(--white);padding:0.85rem 1rem;font-size:0.85rem;font-family:inherit;outline:none;resize:vertical;min-height:120px;"></textarea></div>
+        <button class="form-submit" onclick="submitScholarship()">Submit Application →</button>
+        <p id="sc-msg" style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;display:none;margin-top:0.5rem;"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS -->
+<section id="press" class="press">
+  <div class="section-label">In the Community</div>
+  <h2 class="section-title">Making Waves.</h2>
+  <div class="press-grid">
+    <div class="press-card">
+      <div class="press-source">Georgia Kids Belong</div>
+      <div class="press-quote">"Adoptare donated 30 tote bags to foster youth at the I Belong Project — a brand that truly walks the walk."</div>
+    </div>
+    <div class="press-card">
+      <div class="press-source">Elevator Pitch Competition · 2026</div>
+      <div class="press-quote">"A 19-year-old former foster youth building a nonprofit streetwear brand to fund scholarships — Adoptare is one to watch."</div>
+    </div>
+    <div class="press-card">
+      <div class="press-source">America's Kids Belong</div>
+      <div class="press-quote">"Proud to connect with Adoptare and support their mission of empowering adoptees and foster youth through clothing."</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="faq">
+  <div class="section-label">FAQ</div>
+  <h2 class="section-title">Common Questions.</h2>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(0)">What is Adoptare?<span class="faq-icon" id="fi0">+</span></div><div class="faq-a" id="fa0"><div class="faq-a-inner">Adoptare is a nonprofit streetwear brand founded by Tristan Stuetzel, a 19-year-old former foster youth and adoptee. Our mission is to empower adoptees and foster youth through clothing initiatives and scholarships.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(1)">Where does my money go?<span class="faq-icon" id="fi1">+</span></div><div class="faq-a" id="fa1"><div class="faq-a-inner">100% of clothing sale proceeds go directly toward scholarships for adoptees and foster youth. We keep overhead as low as possible so your purchase makes the biggest impact possible.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(2)">Is Drop 001 available now?<span class="faq-icon" id="fi2">+</span></div><div class="faq-a" id="fa2"><div class="faq-a-inner">Yes! Drop 001 is live now. Scroll up to shop the collection directly on this page or visit adoptare.store.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(3)">How do I apply for a scholarship?<span class="faq-icon" id="fi3">+</span></div><div class="faq-a" id="fa3"><div class="faq-a-inner">Scroll up to The David Scholarship section and fill out the application form. Scholarships are need-based and open to current and former foster youth and adoptees pursuing post-secondary education.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(4)">What is your return policy?<span class="faq-icon" id="fi4">+</span></div><div class="faq-a" id="fa4"><div class="faq-a-inner">Contact us within 14 days of delivery at adoptareinfo@gmail.com. Items must be unworn and in original condition. We'll make it right.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(5)">How long does shipping take?<span class="faq-icon" id="fi5">+</span></div><div class="faq-a" id="fa5"><div class="faq-a-inner">Orders ship within 3–5 business days. Standard US delivery takes 5–8 business days. International shipping is available at checkout.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(6)">Is Adoptare a registered nonprofit?<span class="faq-icon" id="fi6">+</span></div><div class="faq-a" id="fa6"><div class="faq-a-inner">Adoptare is in its founding stage and actively pursuing 501(c)(3) nonprofit status. We are committed to full transparency as we grow and formalize the organization.</div></div></div>
+  </div>
+</section>
+
+<!-- VOLUNTEER -->
+<section id="volunteer" class="volunteer">
+  <div class="volunteer-inner">
+    <div>
+      <div class="section-label">Get Involved</div>
+      <h2 class="section-title">Join the Movement.</h2>
+      <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-top:1.5rem;">There are many ways to support Adoptare's mission. Whether you volunteer your time, donate clothing, or spread the word — every action counts.</p>
+      <div class="volunteer-cards">
+        <div class="vol-card"><div class="vol-icon">★</div><div><div class="vol-title">Volunteer</div><div class="vol-desc">Help with events, outreach, and community programs supporting adoptees and foster youth.</div></div></div>
+
+        <div class="vol-card"><div class="vol-icon">◉</div><div><div class="vol-title">Spread the Word</div><div class="vol-desc">Follow us @adoptare_est2026 and share the mission with your community.</div></div></div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;">Sign Up</div>
+      <div class="form-wrap" id="signup-form">
+        <div class="form-row">
+          <div class="field"><input type="text" id="fname" placeholder="First name"/></div>
+          <div class="field"><input type="text" id="lname" placeholder="Last name"/></div>
+        </div>
+        <div class="field"><input type="email" id="email" placeholder="Email address"/></div>
+        <div class="field">
+          <select id="help" style="width:100%;background:#111;border:1px solid var(--border);color:var(--white);padding:0.85rem 1rem;font-size:0.85rem;font-family:inherit;outline:none;appearance:none;">
+            <option value="" disabled selected>How do you want to help?</option>
+            <option>Volunteer my time</option>
+            <option>Spread the word</option>
+            <option>All of the above</option>
+          </select>
+        </div>
+        <div class="field"><textarea id="message" placeholder="Anything you'd like us to know?" style="width:100%;background:#111;border:1px solid var(--border);color:var(--white);padding:0.85rem 1rem;font-size:0.85rem;font-family:inherit;outline:none;resize:vertical;min-height:100px;"></textarea></div>
+        <button class="form-submit" id="submit-btn" onclick="submitForm()">Submit →</button>
+        <p id="form-msg" style="font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;display:none;margin-top:0.5rem;"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Adoptare</div>
+    <div class="footer-tagline" style="margin-top:0.4rem;">Wear Your Story — Est. 2026</div>
+  </div>
+  <div class="footer-links">
+    <span onclick="scroll2('mission')">Mission</span>
+    <span onclick="scroll2('shop')">Shop</span>
+    <span onclick="scroll2('scholarship')">Scholarship</span>
+    <span onclick="scroll2('volunteer')">Volunteer</span>
+    <a href="https://www.instagram.com/adoptare_est2026" target="_blank">Instagram</a>
+    <span onclick="document.getElementById('contact-popup').classList.add('active')">Contact</span>
+  </div>
+</footer>
+
+<script>
+  function scroll2(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+
+  // Film grain noise
+  (function(){
+    const c=document.getElementById('noise-canvas');
+    const ctx=c.getContext('2d');
+    function resize(){c.width=c.offsetWidth;c.height=c.offsetHeight;}
+    resize();window.addEventListener('resize',resize);
+    function grain(){
+      const w=c.width,h=c.height;
+      const img=ctx.createImageData(w,h);
+      const d=img.data;
+      for(let i=0;i<d.length;i+=4){
+        const v=Math.random()*255|0;
+        d[i]=d[i+1]=d[i+2]=v;d[i+3]=255;
+      }
+      ctx.putImageData(img,0,0);
+      requestAnimationFrame(grain);
+    }
+    grain();
+  })();
+
+  // Back to top
+  const backBtn=document.getElementById('back-to-top');
+  window.addEventListener('scroll',()=>{backBtn.classList.toggle('visible',window.scrollY>400);});
+
+  // Cookie banner
+  if(localStorage.getItem('adoptare_cookies')){document.getElementById('cookie-banner').classList.add('hidden');}
+  function acceptCookies(){localStorage.setItem('adoptare_cookies','accepted');document.getElementById('cookie-banner').classList.add('hidden');}
+  function declineCookies(){localStorage.setItem('adoptare_cookies','declined');document.getElementById('cookie-banner').classList.add('hidden');}
+
+  // Newsletter popup
+  setTimeout(()=>{if(!localStorage.getItem('adoptare_popup')){document.getElementById('newsletter-popup').classList.add('active');}},10000);
+  function closePopup(){document.getElementById('newsletter-popup').classList.remove('active');localStorage.setItem('adoptare_popup','true');}
+
+  // Scholarship tracker — update the raised amount here when you have real data
+  var raised=546, goal=1000;
+  document.getElementById('tracker-raised').textContent='$'+raised.toLocaleString()+' raised';
+  setTimeout(()=>{document.getElementById('tracker-bar').style.width=(raised/goal*100)+'%';},500);
+
+  // Size guide tabs
+  function showSizeTab(tab,btn){
+    ['unisex','womens','polo','cap'].forEach(t=>document.getElementById('tab-'+t).style.display='none');
+    document.querySelectorAll('.size-tab').forEach(b=>b.classList.remove('active'));
+    document.getElementById('tab-'+tab).style.display='block';
+    btn.classList.add('active');
+  }
+
+  // Counter animation
+  const counters=document.querySelectorAll('.counter');
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el=e.target,target=+el.dataset.target,suffix=el.dataset.suffix||'';
+        let cur=0;const step=target/60;
+        const t=setInterval(()=>{cur=Math.min(cur+step,target);el.textContent=Math.floor(cur)+suffix;if(cur>=target)clearInterval(t);},25);
+        obs.unobserve(el);
+      }
+    });
+  },{threshold:0.5});
+  counters.forEach(c=>obs.observe(c));
+
+  // FAQ
+  function toggleFaq(i){
+    const a=document.getElementById('fa'+i),icon=document.getElementById('fi'+i),isOpen=a.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(el=>el.classList.remove('open'));
+    document.querySelectorAll('.faq-icon').forEach(el=>el.classList.remove('open'));
+    if(!isOpen){a.classList.add('open');icon.classList.add('open');}
+  }
+
+  // Forms
+  async function post(data){return fetch('https://formspree.io/f/meepbjwb',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});}
+
+  async function submitForm(){
+    const btn=document.getElementById('submit-btn'),msg=document.getElementById('form-msg');
+    const data={fname:document.getElementById('fname').value,lname:document.getElementById('lname').value,email:document.getElementById('email').value,help:document.getElementById('help').value,message:document.getElementById('message').value,type:'Volunteer Signup'};
+    if(!data.fname||!data.email){msg.style.display='block';msg.style.color='#e87070';msg.textContent='Please fill in your name and email.';return;}
+    btn.textContent='Sending...';btn.disabled=true;
+    try{const r=await post(data);if(r.ok){msg.style.display='block';msg.style.color='var(--accent)';msg.textContent="You're in. Thanks for joining the movement.";}else throw 0;}
+    catch{msg.style.display='block';msg.style.color='#e87070';msg.textContent='Something went wrong. Please try again.';}
+    btn.textContent='Submit →';btn.disabled=false;
+  }
+
+  async function submitStory(){
+    const msg=document.getElementById('story-msg');
+    const data={name:document.getElementById('sname').value,location:document.getElementById('slocation').value,story:document.getElementById('sstory').value,type:'Story Submission'};
+    if(!data.story){msg.style.display='block';msg.style.color='#e87070';msg.textContent='Please write your story.';return;}
+    try{await post(data);msg.style.display='block';msg.style.color='var(--accent)';msg.textContent='Thank you for sharing your story.';}
+    catch{msg.style.display='block';msg.style.color='#e87070';msg.textContent='Something went wrong. Try again.';}
+  }
+
+  async function submitScholarship(){
+    const msg=document.getElementById('sc-msg');
+    const data={fname:document.getElementById('sc-fname').value,lname:document.getElementById('sc-lname').value,email:document.getElementById('sc-email').value,school:document.getElementById('sc-school').value,identity:document.getElementById('sc-type').value,story:document.getElementById('sc-story').value,type:'Scholarship Application'};
+    if(!data.fname||!data.email||!data.story){msg.style.display='block';msg.style.color='#e87070';msg.textContent='Please fill in all required fields.';return;}
+    try{await post(data);msg.style.display='block';msg.style.color='var(--accent)';msg.textContent='Application received. We will be in touch soon.';}
+    catch{msg.style.display='block';msg.style.color='#e87070';msg.textContent='Something went wrong. Try again.';}
+  }
+
+  async function submitContact(){
+    const msg=document.getElementById('contact-msg');
+    const data={name:document.getElementById('c-name').value,email:document.getElementById('c-email').value,subject:document.getElementById('c-subject').value,message:document.getElementById('c-message').value,type:'Contact Form'};
+    if(!data.name||!data.email||!data.message){msg.style.display='block';msg.style.color='#e87070';msg.textContent='Please fill in all required fields.';return;}
+    try{await post(data);msg.style.display='block';msg.style.color='var(--accent)';msg.textContent='Message sent. We will be in touch soon.';setTimeout(()=>document.getElementById('contact-popup').classList.remove('active'),2500);}
+    catch{msg.style.display='block';msg.style.color='#e87070';msg.textContent='Something went wrong. Try again.';}
+  }
+
+  async function submitPopup(){
+    const email=document.getElementById('popup-email').value,msg=document.getElementById('popup-msg');
+    if(!email){msg.style.display='block';msg.style.color='#e87070';msg.textContent='Please enter your email.';return;}
+    try{await post({email,type:'Newsletter Signup'});msg.style.display='block';msg.style.color='var(--accent)';msg.textContent="You're in. Welcome to the movement.";localStorage.setItem('adoptare_popup','true');setTimeout(closePopup,2000);}
+    catch{msg.style.display='block';msg.style.color='#e87070';msg.textContent='Something went wrong. Try again.';}
+  }
+</script>
+</body>
+</html>
