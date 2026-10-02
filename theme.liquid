@@ -892,7 +892,8 @@ Don't forget to clean the surface before applying the sticker.`,
       button.onmouseenter=function(){showProductDescriptionTooltip(id,button);};
       button.onmouseleave=hideProductDescriptionTooltip;
       var add=[].find.call(el.querySelectorAll('button'),function(btn){return btn.textContent.trim().toLowerCase().indexOf('add to cart')>-1;});
-      if(add&&add.parentNode){add.parentNode.insertBefore(button,add);}else{el.appendChild(button);}
+      var addWrap=add&&add.closest('.shopify-buy__btn-wrapper');
+      if(addWrap&&addWrap.parentNode){addWrap.parentNode.insertBefore(button,addWrap);}else{el.appendChild(button);}
     });
   }
   renderProductDescriptionControls();
