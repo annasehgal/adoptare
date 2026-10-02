@@ -87,6 +87,19 @@
   .popup-btn:hover{background:var(--accent);}
   .popup-msg{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.5rem;display:none;}
 
+  .product-desc-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;align-items:center;justify-content:center;}
+  .product-desc-overlay.active{display:flex;}
+  .product-desc-popup{background:#111;border:1px solid var(--border);max-width:620px;width:90%;padding:2.5rem;position:relative;max-height:90vh;overflow-y:auto;}
+  .product-desc-popup::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);}
+  .product-desc-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;}
+  .product-desc-tag{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;}
+  .product-desc-title{font-size:1.5rem;font-weight:800;text-transform:uppercase;margin-bottom:1.25rem;}
+  .product-desc-text{font-size:0.86rem;color:var(--muted);line-height:1.8;white-space:pre-line;}
+  .quick-view-button{display:inline-flex;align-items:center;background:transparent;color:var(--muted);border:0;padding:0;margin:0 0 0.8rem;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:color 0.2s,opacity 0.2s,transform 0.2s;text-decoration-color:transparent;text-underline-offset:0.22rem;font-family:inherit;opacity:0.72;}
+  .quick-view-button:hover{color:var(--accent);opacity:1;text-decoration:underline;text-decoration-color:var(--accent);transform:translateX(2px);}
+  .product-desc-tooltip{position:fixed;z-index:700;max-width:min(420px,calc(100vw - 2rem));background:#111;border:1px solid var(--border);border-top:2px solid var(--accent);color:var(--muted);padding:1.1rem 1.25rem;font-size:0.78rem;line-height:1.75;white-space:pre-line;box-shadow:0 18px 42px rgba(0,0,0,0.45);pointer-events:none;opacity:0;transform:translateY(6px);transition:opacity 0.16s,transform 0.16s;}
+  .product-desc-tooltip.active{opacity:1;transform:translateY(0);}
+
   nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2.5rem;border-bottom:1px solid var(--border);background:rgba(10,10,10,0.92);backdrop-filter:blur(8px);}
   .nav-logo{font-size:1.25rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;}
   .nav-links{display:flex;gap:1.5rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
@@ -347,6 +360,15 @@
   </div>
 </div>
 
+<div class="product-desc-overlay" id="product-desc-popup">
+  <div class="product-desc-popup">
+    <button class="product-desc-close" onclick="closeProductDescription()">✕</button>
+    <div class="product-desc-tag">Product Details</div>
+    <div class="product-desc-title">Description.</div>
+    <div class="product-desc-text" id="product-desc-text"></div>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav>
   <div class="nav-logo">Adoptare</div>
@@ -449,16 +471,16 @@
   </div>
 
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
-    <div id='product-component-1778992578681'></div>
-    <div id='product-component-1778992480664'></div>
-    <div id='product-component-1778992541724'></div>
-    <div id='product-component-1778992433535'></div>
-    <div id='product-component-1778994271327'></div>
-    <div id='product-component-1779217065799'></div>
-    <div id='product-component-1779217881117'></div>
-    <div id='product-component-1784338568619'></div>
-    <div id='product-component-1784338615764'></div>
-    <div id='product-component-1784338640229'></div>
+    <div id='product-component-1778992578681' data-product-id="7663616819267"></div>
+    <div id='product-component-1778992480664' data-product-id="7663613149251"></div>
+    <div id='product-component-1778992541724' data-product-id="7663617376323"></div>
+    <div id='product-component-1778992433535' data-product-id="7663635726403"></div>
+    <div id='product-component-1778994271327' data-product-id="7663637266499"></div>
+    <div id='product-component-1779217065799' data-product-id="7663648702531"></div>
+    <div id='product-component-1779217881117' data-product-id="7664784900163"></div>
+    <div id='product-component-1784338568619' data-product-id="7760643162179"></div>
+    <div id='product-component-1784338615764' data-product-id="7760643522627"></div>
+    <div id='product-component-1784338640229' data-product-id="7760643620931"></div>
   </div>
   <script>
   // LOCAL MOCK ONLY:
@@ -481,7 +503,7 @@
 
   if (productGrid) {
     productGrid.innerHTML = mockProducts.map(product => `
-      <article class="mock-product-card">
+      <article class="mock-product-card" data-product-id="${product.id}">
         <div class="mock-product-image">
           <span>LOCAL MOCK</span>
         </div>
@@ -489,7 +511,10 @@
           <div class="mock-product-name">${product.name}</div>
           <div class="mock-product-price">${product.price}</div>
           <div class="mock-product-id">Shopify ID: ${product.id}</div>
-          <button class="mock-add" onclick="mockAddToCart('${product.id}')">
+          <button type="button" class="quick-view-button" onclick="event.preventDefault()" onmouseenter="showProductDescriptionTooltip('${product.id}',this)" onmouseleave="hideProductDescriptionTooltip()">
+            About the product →
+          </button>
+          <button class="mock-add" onclick="event.stopPropagation();mockAddToCart('${product.id}')">
             Add to cart
           </button>
         </div>
@@ -767,6 +792,146 @@
   // Newsletter popup
   setTimeout(()=>{if(!localStorage.getItem('adoptare_popup')){document.getElementById('newsletter-popup').classList.add('active');}},10000);
   function closePopup(){document.getElementById('newsletter-popup').classList.remove('active');localStorage.setItem('adoptare_popup','true');}
+
+  const productDescriptions={
+    '7663616819267':`This classic crew-neck tee delivers unmatched comfort, versatility, and blank-canvas appeal. Crafted with a soft-washed finish and premium combed ring-spun cotton, it’s designed for everyday wear and superior printability — making it ideal for casual outfits, bold designs, custom projects, and brand-ready pieces.
+- 100% combed ring-spun cotton
+- Fabric weight: 5.5 oz/yd² (180g/m²)
+- Side-seamed construction
+- Drop shoulder sleeves
+- 1 × 1 ribbed collar reinforced neckline
+- Tear-away tag
+- Blank product sourced from Bangladesh`,
+    '7663613149251':`There’s nothing trendier than being eco-friendly! Create a design and showcase it on this organic cotton twill tote bag! The large print area and the solid color of the bag are sure to make any design stand out. This roomy bag fits groceries, books, and so much more.
+- 100% certified organic cotton 3/1 twill
+- Fabric weight: 8 oz/yd² (272 g/m²)
+- Dimensions: 16″ × 14 ½″ × 5″ (40.6 cm × 35.6 cm × 12.7 cm)
+- Weight limit: 30 lbs (13.6 kg)
+- 1″ (2.5 cm) wide dual straps, 24.5″ (62.2 cm) length
+- Open main compartment
+- Double-sided print available for an additional fee of $5.95 (€5.25)
+- The fabric of this product holds certifications for its organic cotton content under GOTS (Global Organic Textile Standard) and OCS (Organic Content Standard)
+- The fabric of this product is certified according to OEKO-TEX® STANDARD 100 (Certificate No. 13.HIN.28382, Hohenstein). The product is also PETA-Approved Vegan
+- Blank product sourced from India`,
+    '7663617376323':`Heavyweight sweatpants
+These sweatpants have a 90s vibe, with thick fleece and a roomy, street-style fit. The inside is brushed fleece for softness, and deep side pockets and elastic cuffs make them easy to wear all day.
+
+• 60% cotton, 40% polyester fleece
+• Athletic Heather is 94% cotton, 6% polyester fleece
+• Fabric weight: 10 oz./yd.² (339 g/m²)
+• Relaxed, boxy fit
+• Deep side pockets, elastic cuffs, interior drawcord
+• Soft brushed fleece inside
+• Blank product sourced from Nicaragua`,
+    '7663635726403':`This polo is made from thick, soft fabric and features a matching-color button placket for a sleek look. It provides all-day comfort for sports or everyday wear and keeps you looking sharp wherever you go.
+
+• 100% combed ring-spun cotton
+• Grey Melange color is 85% cotton, 15% viscose
+• Fabric weight: 6.2 oz./yd.² (210 g/m²)
+• Classic fit
+• Ribbed collar
+• Tone-on-tone 3-button placket
+• Straight hem with side slits
+• Spare button on the inside seam
+• Blank product sourced from Bangladesh`,
+    '7663637266499':`Embrace the versatility of the Oversized faded t-shirt, designed for those who appreciate the art of layering and creating unique outfits that effortlessly fuse modern trends with a hint of nostalgia. Its loose fit allows you to play with textures and proportions, giving you the freedom to express your personality through your style.
+
+• 100% carded cotton
+• Fabric weight: 7.1 oz. /yd. ² (240 g/m²)
+• Garment-dyed, pre-shrunk fabric
+• Boxy, oversized fit
+• Dropped shoulders
+• Wide neck ribbing
+• Tear-away label
+• Blank product sourced from China`,
+    '7663648702531':`This rope cap features lightweight polyester for all-day comfort, a classic braided rope detail on the bill, and a Stay-Dri sweatband for moisture control. Wear it to a game, the marina, or just to complete your everyday look.
+
+• 100% polyester
+• Stay-Dri sweatband
+• Structured, five-panel, mid-profile construction
+• Curved bill
+• Braided rope detailing on the bill
+• Adjustable snapback closure
+• One size fits most
+• Blank product sourced from China`,
+    '7664784900163':`This just might be the softest and most comfortable women's t-shirt you'll ever own. Combine the relaxed fit and smooth fabric of this tee with jeans to create an effortless every-day outfit, or dress it up with a jacket and dress pants for a business casual look.
+
+• 100% combed and ring-spun cotton
+• Heather Prism Lilac &amp; Heather Prism Natural are 99% combed and ring-spun cotton, 1% polyester
+• Athletic Heather is 90% combed and ring-spun cotton, 10% polyester
+• Other Heather colors are 52% combed and ring-spun cotton, 48% polyester
+• Fabric weight: 4.2 oz/y² (142 g/m²)
+• Relaxed fit
+• Pre-shrunk fabric
+• Side-seamed construction
+• Crew neck
+• Blank product sourced from Nicaragua, Honduras, or the US`,
+    '7760643162179':`These stickers are printed on durable, high opacity adhesive vinyl which makes them perfect for regular use, as well as for covering other stickers or paint. The high-quality vinyl ensures there are no bubbles when applying the stickers.
+
+•  High opacity film that’s impossible to see through
+•  Fast and easy bubble-free application
+•  Durable vinyl
+•  95µ density
+
+Don't forget to clean the surface before applying the sticker.`,
+    '7760643522627':`The 5 panel cap is a top choice of headwear with a clean, structured front panel for stand-out designs. The mid-profile fit provides long-lasting comfort, while the adjustable snap closure keeps everything secure. The slightly curved visor adds a classic touch, and the matching fabric undervisor and sweatband complete the style for a fully polished look, perfect for any outfit.
+
+• 65% polyester, 35% cotton for breathability and comfort
+• Structured front panel for vibrant designs
+• Mid-profile fit for relaxed, comfortable wear
+• Adjustable snap closure for a secure fit
+• Matching fabric undervisor and sweatband for a polished finish
+• Blank product sourced from China and Myanmar`,
+    '7760643620931':`Embrace the versatility of the Oversized faded t-shirt, designed for those who appreciate the art of layering and creating unique outfits that effortlessly fuse modern trends with a hint of nostalgia. Its loose fit allows you to play with textures and proportions, giving you the freedom to express your personality through your style.
+
+• 100% carded cotton
+• Fabric weight: 7.1 oz. /yd. ² (240 g/m²)
+• Garment-dyed, pre-shrunk fabric
+• Boxy, oversized fit
+• Dropped shoulders
+• Wide neck ribbing
+• Tear-away label
+• Blank product sourced from China`
+  };
+  function openProductDescription(id){document.getElementById('product-desc-text').textContent=productDescriptions[id]||'';document.getElementById('product-desc-popup').classList.add('active');}
+  function closeProductDescription(){document.getElementById('product-desc-popup').classList.remove('active');}
+  var productDescriptionTooltip;
+  function showProductDescriptionTooltip(id,trigger){
+    if(!window.matchMedia('(hover:hover)').matches)return;
+    if(!productDescriptionTooltip){
+      productDescriptionTooltip=document.createElement('div');
+      productDescriptionTooltip.className='product-desc-tooltip';
+      document.body.appendChild(productDescriptionTooltip);
+    }
+    productDescriptionTooltip.textContent=productDescriptions[id]||'';
+    productDescriptionTooltip.classList.add('active');
+    var rect=trigger.getBoundingClientRect(),tip=productDescriptionTooltip;
+    tip.style.left='0px';
+    tip.style.top='0px';
+    var tipRect=tip.getBoundingClientRect();
+    var left=Math.min(Math.max(rect.left,16),window.innerWidth-tipRect.width-16);
+    var top=rect.bottom+10;
+    if(top+tipRect.height>window.innerHeight-16){top=Math.max(16,rect.top-tipRect.height-10);}
+    tip.style.left=left+'px';
+    tip.style.top=top+'px';
+  }
+  function hideProductDescriptionTooltip(){if(productDescriptionTooltip)productDescriptionTooltip.classList.remove('active');}
+  function renderProductDescriptionControls(){
+    document.querySelectorAll('#shop [data-product-id]').forEach(function(el){
+      var id=el.getAttribute('data-product-id');
+      if(el.querySelector('.quick-view-button')||el.classList.contains('mock-product-card')||!productDescriptions[id])return;
+      var button=document.createElement('button');
+      button.type='button';
+      button.className='quick-view-button';
+      button.textContent='About the product →';
+      button.onclick=function(e){e.preventDefault();};
+      button.onmouseenter=function(){showProductDescriptionTooltip(id,button);};
+      button.onmouseleave=hideProductDescriptionTooltip;
+      var add=[].find.call(el.querySelectorAll('button'),function(btn){return btn.textContent.trim().toLowerCase().indexOf('add to cart')>-1;});
+      if(add&&add.parentNode){add.parentNode.insertBefore(button,add);}else{el.appendChild(button);}
+    });
+  }
+  renderProductDescriptionControls();
 
   // Scholarship tracker — update the raised amount here when you have real data
   var raised=546, goal=1000;
