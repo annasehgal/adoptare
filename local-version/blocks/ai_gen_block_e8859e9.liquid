@@ -1,0 +1,841 @@
+{% doc %}
+  @prompt
+    Create a full custom homepage design for a brand called "Adoptare" with a dark, minimal, editorial aesthetic. Include the following sections:
+    
+    1. **Hero Section**: Full-viewport height, dark background (#0a0a0a) with a subtle repeating grid overlay (thin white lines at low opacity). Large bold uppercase typography (clamp 3.5rem to 8rem) with one line using an outline/stroke text effect (transparent fill, white stroke). Includes a small uppercase accent-colored tag line above the title, a muted subtitle paragraph, and two CTA buttons — one solid white (primary) and one outlined.
+    
+    2. **Drop Overlay Panel**: A full-screen overlay (triggered by a button) with a dark background, a top nav bar with a close button, and a body containing: an accent-colored tag, a large bold title with outline text effect, a muted subtitle, a 2-column photo grid with hover brightness effect, and an email notification signup form (input + submit button side by side). Show a success message after submission.
+    
+    Design tokens: Background #0a0a0a, White #f5f5f0, Accent #e8d5b0, Muted #c8c8c0, Card bg #141414, Border #2a2a2a, Font: Helvetica Neue, all text uppercase with wide letter-spacing, buttons with hover transitions.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .adoptare-homepage-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #0a0a0a;
+    color: #f5f5f0;
+  }
+
+  .adoptare-hero-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{ block.settings.hero_bg_color }};
+    overflow: hidden;
+  }
+
+  .adoptare-hero-grid-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      repeating-linear-gradient(0deg, {{ block.settings.grid_color }} 0px, {{ block.settings.grid_color }} 1px, transparent 1px, transparent {{ block.settings.grid_size }}px),
+      repeating-linear-gradient(90deg, {{ block.settings.grid_color }} 0px, {{ block.settings.grid_color }} 1px, transparent 1px, transparent {{ block.settings.grid_size }}px);
+    opacity: {{ block.settings.grid_opacity | divided_by: 100.0 }};
+    pointer-events: none;
+  }
+
+  .adoptare-hero-content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .adoptare-hero-tag-{{ ai_gen_id }} {
+    font-size: {{ block.settings.tag_size }}px;
+    letter-spacing: {{ block.settings.letter_spacing }}px;
+    text-transform: uppercase;
+    color: {{ block.settings.accent_color }};
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  .adoptare-hero-title-{{ ai_gen_id }} {
+    font-size: clamp(3.5rem, 8vw, {{ block.settings.title_size }}px);
+    font-weight: 700;
+    letter-spacing: {{ block.settings.letter_spacing }}px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin: 0 0 30px;
+  }
+
+  .adoptare-hero-title-outline-{{ ai_gen_id }} {
+    color: transparent;
+    -webkit-text-stroke: 2px {{ block.settings.white_color }};
+    text-stroke: 2px {{ block.settings.white_color }};
+    display: block;
+  }
+
+  .adoptare-hero-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.muted_color }};
+    max-width: 600px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+  }
+
+  .adoptare-hero-buttons-{{ ai_gen_id }} {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .adoptare-btn-{{ ai_gen_id }} {
+    padding: 16px 40px;
+    font-size: 14px;
+    letter-spacing: {{ block.settings.letter_spacing }}px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    border-radius: {{ block.settings.button_radius }}px;
+  }
+
+  .adoptare-btn-primary-{{ ai_gen_id }} {
+    background-color: {{ block.settings.white_color }};
+    color: {{ block.settings.hero_bg_color }};
+  }
+
+  .adoptare-btn-primary-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.muted_color }};
+    transform: translateY(-2px);
+  }
+
+  .adoptare-btn-secondary-{{ ai_gen_id }} {
+    background-color: transparent;
+    color: {{ block.settings.white_color }};
+    border: 1px solid {{ block.settings.white_color }};
+  }
+
+  .adoptare-btn-secondary-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.white_color }};
+    color: {{ block.settings.hero_bg_color }};
+    transform: translateY(-2px);
+  }
+
+  .adoptare-overlay-{{ ai_gen_id }} {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: {{ block.settings.overlay_bg_color }};
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    overflow-y: auto;
+  }
+
+  .adoptare-overlay-{{ ai_gen_id }}.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .adoptare-overlay-nav-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: flex-end;
+    padding: 30px 40px;
+    border-bottom: 1px solid {{ block.settings.border_color }};
+  }
+
+  .adoptare-close-btn-{{ ai_gen_id }} {
+    background: none;
+    border: none;
+    color: {{ block.settings.white_color }};
+    font-size: 14px;
+    letter-spacing: {{ block.settings.letter_spacing }}px;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 10px 20px;
+    transition: color 0.3s ease;
+  }
+
+  .adoptare-close-btn-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.accent_color }};
+  }
+
+  .adoptare-overlay-body-{{ ai_gen_id }} {
+    padding: 60px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .adoptare-overlay-tag-{{ ai_gen_id }} {
+    font-size: {{ block.settings.tag_size }}px;
+    letter-spacing: {{ block.settings.letter_spacing }}px;
+    text-transform: uppercase;
+    color: {{ block.settings.accent_color }};
+    margin-bottom: 20px;
+  }
+
+  .adoptare-overlay-title-{{ ai_gen_id }} {
+    font-size: clamp(2.5rem, 6vw, {{ block.settings.overlay_title_size }}px);
+    font-weight: 700;
+    letter-spacing: {{ block.settings.letter_spacing }}px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin: 0 0 20px;
+  }
+
+  .adoptare-overlay-title-outline-{{ ai_gen_id }} {
+    color: transparent;
+    -webkit-text-stroke: 2px {{ block.settings.white_color }};
+    text-stroke: 2px {{ block.settings.white_color }};
+    display: block;
+  }
+
+  .adoptare-overlay-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.muted_color }};
+    margin-bottom: 50px;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+  }
+
+  .adoptare-photo-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 50px;
+  }
+
+  .adoptare-photo-item-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    background-color: {{ block.settings.card_bg_color }};
+    aspect-ratio: 4 / 5;
+  }
+
+  .adoptare-photo-item-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.3s ease;
+    filter: brightness(0.8);
+  }
+
+  .adoptare-photo-item-{{ ai_gen_id }}:hover img {
+    filter: brightness(1);
+  }
+
+  .adoptare-photo-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{ block.settings.card_bg_color }};
+  }
+
+  .adoptare-photo-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .adoptare-signup-form-{{ ai_gen_id }} {
+    max-width: 600px;
+  }
+
+  .adoptare-form-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.form_title_size }}px;
+    letter-spacing: {{ block.settings.letter_spacing }}px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .adoptare-form-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    gap: 10px;
+  }
+
+  .adoptare-form-input-{{ ai_gen_id }} {
+    flex: 1;
+    padding: 16px 20px;
+    background-color: {{ block.settings.card_bg_color }};
+    border: 1px solid {{ block.settings.border_color }};
+    color: {{ block.settings.white_color }};
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    border-radius: {{ block.settings.input_radius }}px;
+  }
+
+  .adoptare-form-input-{{ ai_gen_id }}::placeholder {
+    color: {{ block.settings.muted_color }};
+  }
+
+  .adoptare-form-input-{{ ai_gen_id }}:focus {
+    outline: none;
+    border-color: {{ block.settings.accent_color }};
+  }
+
+  .adoptare-form-submit-{{ ai_gen_id }} {
+    padding: 16px 32px;
+    background-color: {{ block.settings.white_color }};
+    color: {{ block.settings.hero_bg_color }};
+    border: none;
+    font-size: 14px;
+    letter-spacing: {{ block.settings.letter_spacing }}px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    border-radius: {{ block.settings.input_radius }}px;
+  }
+
+  .adoptare-form-submit-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.accent_color }};
+    transform: translateY(-2px);
+  }
+
+  .adoptare-form-success-{{ ai_gen_id }} {
+    color: {{ block.settings.accent_color }};
+    margin-top: 15px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    display: none;
+  }
+
+  .adoptare-form-success-{{ ai_gen_id }}.show {
+    display: block;
+  }
+
+  .adoptare-form-error-{{ ai_gen_id }} {
+    color: #ff6b6b;
+    margin-top: 15px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .adoptare-hero-content-{{ ai_gen_id }} {
+      padding: 20px;
+    }
+
+    .adoptare-hero-tag-{{ ai_gen_id }} {
+      font-size: 10px;
+    }
+
+    .adoptare-hero-subtitle-{{ ai_gen_id }} {
+      font-size: 14px;
+    }
+
+    .adoptare-hero-buttons-{{ ai_gen_id }} {
+      flex-direction: column;
+    }
+
+    .adoptare-btn-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .adoptare-overlay-nav-{{ ai_gen_id }},
+    .adoptare-overlay-body-{{ ai_gen_id }} {
+      padding: 20px;
+    }
+
+    .adoptare-photo-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .adoptare-form-wrapper-{{ ai_gen_id }} {
+      flex-direction: column;
+    }
+
+    .adoptare-form-submit-{{ ai_gen_id }} {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<adoptare-homepage-{{ ai_gen_id }} class="adoptare-homepage-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="adoptare-hero-{{ ai_gen_id }}">
+    <div class="adoptare-hero-grid-{{ ai_gen_id }}"></div>
+    
+    <div class="adoptare-hero-content-{{ ai_gen_id }}">
+      {% if block.settings.hero_tag != blank %}
+        <div class="adoptare-hero-tag-{{ ai_gen_id }}">{{ block.settings.hero_tag }}</div>
+      {% endif %}
+      
+      {% if block.settings.hero_title_line1 != blank or block.settings.hero_title_line2 != blank %}
+        <h1 class="adoptare-hero-title-{{ ai_gen_id }}">
+          {% if block.settings.hero_title_line1 != blank %}
+            <span>{{ block.settings.hero_title_line1 }}</span>
+          {% endif %}
+          {% if block.settings.hero_title_line2 != blank %}
+            <span class="adoptare-hero-title-outline-{{ ai_gen_id }}">{{ block.settings.hero_title_line2 }}</span>
+          {% endif %}
+        </h1>
+      {% endif %}
+      
+      {% if block.settings.hero_subtitle != blank %}
+        <p class="adoptare-hero-subtitle-{{ ai_gen_id }}">{{ block.settings.hero_subtitle }}</p>
+      {% endif %}
+      
+      <div class="adoptare-hero-buttons-{{ ai_gen_id }}">
+        {% if block.settings.primary_btn_text != blank %}
+          <a href="{{ block.settings.primary_btn_link }}" class="adoptare-btn-{{ ai_gen_id }} adoptare-btn-primary-{{ ai_gen_id }}">
+            {{ block.settings.primary_btn_text }}
+          </a>
+        {% endif %}
+        
+        {% if block.settings.secondary_btn_text != blank %}
+          <button class="adoptare-btn-{{ ai_gen_id }} adoptare-btn-secondary-{{ ai_gen_id }}" data-overlay-trigger>
+            {{ block.settings.secondary_btn_text }}
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="adoptare-overlay-{{ ai_gen_id }}" data-overlay>
+    <div class="adoptare-overlay-nav-{{ ai_gen_id }}">
+      <button class="adoptare-close-btn-{{ ai_gen_id }}" data-overlay-close>Close</button>
+    </div>
+    
+    <div class="adoptare-overlay-body-{{ ai_gen_id }}">
+      {% if block.settings.overlay_tag != blank %}
+        <div class="adoptare-overlay-tag-{{ ai_gen_id }}">{{ block.settings.overlay_tag }}</div>
+      {% endif %}
+      
+      {% if block.settings.overlay_title_line1 != blank or block.settings.overlay_title_line2 != blank %}
+        <h2 class="adoptare-overlay-title-{{ ai_gen_id }}">
+          {% if block.settings.overlay_title_line1 != blank %}
+            <span>{{ block.settings.overlay_title_line1 }}</span>
+          {% endif %}
+          {% if block.settings.overlay_title_line2 != blank %}
+            <span class="adoptare-overlay-title-outline-{{ ai_gen_id }}">{{ block.settings.overlay_title_line2 }}</span>
+          {% endif %}
+        </h2>
+      {% endif %}
+      
+      {% if block.settings.overlay_subtitle != blank %}
+        <p class="adoptare-overlay-subtitle-{{ ai_gen_id }}">{{ block.settings.overlay_subtitle }}</p>
+      {% endif %}
+      
+      <div class="adoptare-photo-grid-{{ ai_gen_id }}">
+        {% for i in (1..2) %}
+          {% assign image_key = 'overlay_image_' | append: i %}
+          {% assign image = block.settings[image_key] %}
+          
+          <div class="adoptare-photo-item-{{ ai_gen_id }}">
+            {% if image %}
+              <img 
+                src="{{ image | image_url: width: 800 }}" 
+                alt="{{ image.alt | escape }}"
+                loading="lazy"
+                width="800"
+                height="1000"
+              >
+            {% else %}
+              <div class="adoptare-photo-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      
+      <div class="adoptare-signup-form-{{ ai_gen_id }}">
+        {% if block.settings.form_title != blank %}
+          <h3 class="adoptare-form-title-{{ ai_gen_id }}">{{ block.settings.form_title }}</h3>
+        {% endif %}
+        
+        {%- form 'contact' -%}
+          <input type="hidden" name="contact[adoptare_signup]" value="true">
+          
+          <div class="adoptare-form-wrapper-{{ ai_gen_id }}">
+            <input 
+              type="email" 
+              name="contact[email]" 
+              class="adoptare-form-input-{{ ai_gen_id }}"
+              placeholder="{{ block.settings.email_placeholder }}"
+              aria-required="true"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              {% if form.errors %}
+                aria-invalid="true"
+                aria-describedby="adoptare-form-error-{{ ai_gen_id }}"
+              {% endif %}
+              {% if form.posted_successfully? %}
+                aria-describedby="adoptare-form-success-{{ ai_gen_id }}"
+              {% endif %}
+              required
+            >
+            <button type="submit" class="adoptare-form-submit-{{ ai_gen_id }}">
+              {{ block.settings.submit_btn_text }}
+            </button>
+          </div>
+          
+          {%- if form.errors -%}
+            <div id="adoptare-form-error-{{ ai_gen_id }}" class="adoptare-form-error-{{ ai_gen_id }}">
+              {{ form.errors.messages.email }}
+            </div>
+          {%- endif -%}
+          
+          {%- if form.posted_successfully? -%}
+            <div id="adoptare-form-success-{{ ai_gen_id }}" class="adoptare-form-success-{{ ai_gen_id }} show">
+              {{ block.settings.success_message }}
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</adoptare-homepage-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AdoptareHomepage{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.overlay = this.querySelector('[data-overlay]');
+        this.overlayTrigger = this.querySelector('[data-overlay-trigger]');
+        this.overlayClose = this.querySelector('[data-overlay-close]');
+        
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        if (this.overlayTrigger) {
+          this.overlayTrigger.addEventListener('click', () => {
+            this.openOverlay();
+          });
+        }
+
+        if (this.overlayClose) {
+          this.overlayClose.addEventListener('click', () => {
+            this.closeOverlay();
+          });
+        }
+
+        if (this.overlay) {
+          this.overlay.addEventListener('click', (e) => {
+            if (e.target === this.overlay) {
+              this.closeOverlay();
+            }
+          });
+        }
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && this.overlay.classList.contains('active')) {
+            this.closeOverlay();
+          }
+        });
+      }
+
+      openOverlay() {
+        this.overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      closeOverlay() {
+        this.overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    customElements.define('adoptare-homepage-{{ ai_gen_id }}', AdoptareHomepage{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Adoptare homepage",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero section"
+    },
+    {
+      "type": "text",
+      "id": "hero_tag",
+      "label": "Tag line",
+      "default": "Spring 2026"
+    },
+    {
+      "type": "text",
+      "id": "hero_title_line1",
+      "label": "Title line 1",
+      "default": "Minimal"
+    },
+    {
+      "type": "text",
+      "id": "hero_title_line2",
+      "label": "Title line 2 (outline)",
+      "default": "Editorial"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subtitle",
+      "label": "Subtitle",
+      "default": "Discover our curated collection of timeless pieces designed for the modern minimalist."
+    },
+    {
+      "type": "text",
+      "id": "primary_btn_text",
+      "label": "Primary button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "primary_btn_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_btn_text",
+      "label": "Secondary button text",
+      "default": "Explore collection"
+    },
+    {
+      "type": "header",
+      "content": "Overlay panel"
+    },
+    {
+      "type": "text",
+      "id": "overlay_tag",
+      "label": "Tag line",
+      "default": "New arrivals"
+    },
+    {
+      "type": "text",
+      "id": "overlay_title_line1",
+      "label": "Title line 1",
+      "default": "Curated"
+    },
+    {
+      "type": "text",
+      "id": "overlay_title_line2",
+      "label": "Title line 2 (outline)",
+      "default": "Selection"
+    },
+    {
+      "type": "textarea",
+      "id": "overlay_subtitle",
+      "label": "Subtitle",
+      "default": "Explore our latest collection of carefully selected pieces."
+    },
+    {
+      "type": "image_picker",
+      "id": "overlay_image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "overlay_image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "header",
+      "content": "Email signup form"
+    },
+    {
+      "type": "text",
+      "id": "form_title",
+      "label": "Form title",
+      "default": "Stay updated"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "submit_btn_text",
+      "label": "Submit button text",
+      "default": "Notify me"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thank you for subscribing!"
+    },
+    {
+      "type": "header",
+      "content": "Design settings"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Hero title size",
+      "min": 40,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "overlay_title_size",
+      "label": "Overlay title size",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "tag_size",
+      "label": "Tag size",
+      "min": 8,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "form_title_size",
+      "label": "Form title size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "grid_size",
+      "label": "Grid size",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "grid_opacity",
+      "label": "Grid opacity",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "%",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "input_radius",
+      "label": "Input radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "hero_bg_color",
+      "label": "Background",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "white_color",
+      "label": "White",
+      "default": "#f5f5f0"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#e8d5b0"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#c8c8c0"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card background",
+      "default": "#141414"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#2a2a2a"
+    },
+    {
+      "type": "color",
+      "id": "grid_color",
+      "label": "Grid",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "overlay_bg_color",
+      "label": "Overlay background",
+      "default": "#0a0a0a"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Adoptare homepage"
+    }
+  ]
+}
+{% endschema %}

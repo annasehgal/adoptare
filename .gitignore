@@ -1,1 +1,27 @@
-local-version
+local-version-backup
+# OS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor / IDE files
+.vscode/
+.idea/
+
+# Node dependencies
+node_modules/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Shopify CLI local files
+.shopify/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
