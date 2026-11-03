@@ -44,7 +44,8 @@
   .contact-overlay.active{display:flex;}
   .contact-popup{background:#111;border:1px solid var(--border);max-width:460px;width:90%;padding:2.5rem;position:relative;max-height:90vh;overflow-y:auto;}
   .contact-popup::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);}
-  .contact-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;}
+  .contact-close,.size-close,.popup-close,.product-desc-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);cursor:pointer;display:grid;place-items:center;padding:0.25rem;}
+  .contact-close svg,.size-close svg,.popup-close svg,.product-desc-close svg{width:1rem;height:1rem;}
   .contact-tag{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;}
   .contact-title{font-size:1.8rem;font-weight:800;text-transform:uppercase;line-height:0.9;margin-bottom:0.5rem;}
   .contact-email-label{font-size:0.72rem;letter-spacing:0.1em;color:var(--muted);margin-bottom:1.5rem;}
@@ -62,7 +63,6 @@
   .size-overlay.active{display:flex;}
   .size-popup{background:#111;border:1px solid var(--border);max-width:600px;width:90%;padding:2.5rem;position:relative;max-height:90vh;overflow-y:auto;}
   .size-popup::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);}
-  .size-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;}
   .size-title{font-size:1.5rem;font-weight:800;text-transform:uppercase;margin-bottom:0.5rem;}
   .size-sub{font-size:0.72rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;}
   .size-table{width:100%;border-collapse:collapse;font-size:0.75rem;}
@@ -77,7 +77,6 @@
   .popup-overlay.active{display:flex;}
   .popup{background:#111;border:1px solid var(--border);max-width:420px;width:90%;padding:2.5rem;position:relative;}
   .popup::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);}
-  .popup-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;}
   .popup-tag{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;}
   .popup-title{font-size:1.8rem;font-weight:800;text-transform:uppercase;line-height:0.9;margin-bottom:1rem;}
   .popup-sub{font-size:0.8rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
@@ -90,7 +89,6 @@
   .product-desc-overlay.active{display:flex;}
   .product-desc-popup{background:#111;border:1px solid var(--border);max-width:620px;width:90%;padding:2.5rem;position:relative;max-height:90vh;overflow-y:auto;}
   .product-desc-popup::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);}
-  .product-desc-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;}
   .product-desc-tag{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;}
   .product-desc-title{font-size:1.5rem;font-weight:800;text-transform:uppercase;margin-bottom:1.25rem;}
   .product-desc-text{font-size:0.86rem;color:var(--muted);line-height:1.8;white-space:pre-line;}
@@ -142,7 +140,8 @@
   .ig-item:hover img{transform:scale(1.05);filter:brightness(0.7);}
   .ig-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s;gap:0.5rem;}
   .ig-item:hover .ig-overlay{opacity:1;}
-  .ig-likes{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#fff;font-weight:700;}
+  .ig-likes{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#fff;font-weight:700;display:flex;align-items:center;gap:0.35rem;}
+  .ig-likes svg{width:0.8rem;height:0.8rem;flex-shrink:0;}
   .ig-follow{display:block;margin-top:2rem;text-align:center;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:0.65rem 2rem;width:fit-content;}
   .hero-tag{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;position:relative;z-index:2;}
   .hero-title{font-size:clamp(3.5rem,10vw,8rem);font-weight:800;line-height:0.9;text-transform:uppercase;letter-spacing:-0.02em;position:relative;z-index:2;}
@@ -187,7 +186,9 @@
   .shipping{background:#0f0f0f;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
   .shipping-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:3rem;}
   .shipping-item{background:var(--black);padding:2rem 1.75rem;}
-  .shipping-icon{font-size:1.5rem;margin-bottom:0.75rem;}
+  .shipping-icon{color:var(--accent);margin-bottom:0.75rem;}
+  .shipping-icon svg{width:1.7rem;height:1.7rem;display:block;}
+  .adoptare-icon{width:1.25rem;height:1.25rem;display:block;}
   .shipping-title{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--white);margin-bottom:0.5rem;}
   .shipping-desc{font-size:0.72rem;color:var(--muted);line-height:1.7;}
 
@@ -218,7 +219,8 @@
   .faq-item{background:var(--black);overflow:hidden;}
   .faq-q{padding:1.25rem 1.75rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:0.85rem;font-weight:600;letter-spacing:0.05em;}
   .faq-q:hover{background:#111;}
-  .faq-icon{color:var(--accent);font-size:1.2rem;flex-shrink:0;transition:transform 0.3s;}
+  .faq-icon{color:var(--accent);flex-shrink:0;transition:transform 0.3s;display:grid;place-items:center;}
+  .faq-icon svg{width:1.2rem;height:1.2rem;display:block;}
   .faq-icon.open{transform:rotate(45deg);}
   .faq-a{max-height:0;overflow:hidden;transition:max-height 0.3s ease;}
   .faq-a.open{max-height:200px;}
@@ -228,7 +230,8 @@
   .volunteer-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
   .volunteer-cards{display:flex;flex-direction:column;gap:1rem;margin-top:2rem;}
   .vol-card{background:var(--card-bg);border:1px solid var(--border);padding:1.5rem;display:flex;gap:1.25rem;align-items:flex-start;}
-  .vol-icon{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+  .vol-icon{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;}
+  .vol-icon svg{width:1rem;height:1rem;}
   .vol-title{font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;}
   .vol-desc{font-size:0.75rem;color:var(--muted);line-height:1.5;}
 
@@ -286,7 +289,7 @@
 <!-- CONTACT POPUP -->
 <div class="contact-overlay" id="contact-popup">
   <div class="contact-popup">
-    <button class="contact-close" onclick="document.getElementById('contact-popup').classList.remove('active')">✕</button>
+    <button class="contact-close" aria-label="Close contact form" onclick="document.getElementById('contact-popup').classList.remove('active')">{{ 'icon-close.svg' | inline_asset_content }}</button>
     <div class="contact-tag">Get in Touch · Adoptare Est. 2026</div>
     <div class="contact-title">Contact Us.</div>
     <div class="contact-email-label">Reach us at <span>adoptareinfo@gmail.com</span></div>
@@ -302,7 +305,7 @@
 <!-- SIZE GUIDE POPUP -->
 <div class="size-overlay" id="size-popup">
   <div class="size-popup">
-    <button class="size-close" onclick="document.getElementById('size-popup').classList.remove('active')">✕</button>
+    <button class="size-close" aria-label="Close size guide" onclick="document.getElementById('size-popup').classList.remove('active')">{{ 'icon-close.svg' | inline_asset_content }}</button>
     <div class="section-label">Adoptare</div>
     <div class="size-title">Size Guide</div>
     <div class="size-sub">All measurements are in inches. For the best fit, measure yourself and compare to the size chart below. When between sizes, we recommend sizing up.</div>
@@ -353,7 +356,7 @@
 <!-- NEWSLETTER POPUP -->
 <div class="popup-overlay" id="newsletter-popup">
   <div class="popup">
-    <button class="popup-close" onclick="closePopup()">✕</button>
+    <button class="popup-close" aria-label="Close newsletter signup" onclick="closePopup()">{{ 'icon-close.svg' | inline_asset_content }}</button>
     <div class="popup-tag">Join the Movement · Adoptare Est. 2026</div>
     <div class="popup-title">Stay in the Loop.</div>
     <div class="popup-sub">Be the first to know about new drops, scholarships, and everything Adoptare. No spam — just the movement.</div>
@@ -365,7 +368,7 @@
 
 <div class="product-desc-overlay" id="product-desc-popup">
   <div class="product-desc-popup">
-    <button class="product-desc-close" onclick="closeProductDescription()">✕</button>
+    <button class="product-desc-close" aria-label="Close product details" onclick="closeProductDescription()">{{ 'icon-close.svg' | inline_asset_content }}</button>
     <div class="product-desc-tag">Product Details</div>
     <div class="product-desc-title">Description.</div>
     <div class="product-desc-text" id="product-desc-text"></div>
@@ -529,17 +532,17 @@
   <h2 class="section-title">We've Got You Covered.</h2>
   <div class="shipping-grid">
     <div class="shipping-item">
-      <div class="shipping-icon">📦</div>
+      <div class="shipping-icon">{% render 'adoptare-icon', name: 'box' %}</div>
       <div class="shipping-title">Standard Shipping</div>
       <div class="shipping-desc">Orders typically ship within 3–5 business days. Standard delivery takes 5–8 business days within the US. International shipping available at checkout.</div>
     </div>
     <div class="shipping-item">
-      <div class="shipping-icon">🔄</div>
+      <div class="shipping-icon">{% render 'adoptare-icon', name: 'refresh' %}</div>
       <div class="shipping-title">Returns & Exchanges</div>
       <div class="shipping-desc">Not happy with your order? Contact us within 14 days of delivery at adoptareinfo@gmail.com and we'll make it right. Items must be unworn and in original condition.</div>
     </div>
     <div class="shipping-item">
-      <div class="shipping-icon">💳</div>
+      <div class="shipping-icon">{% render 'adoptare-icon', name: 'card' %}</div>
       <div class="shipping-title">Secure Checkout</div>
       <div class="shipping-desc">All orders are processed securely through Shopify. We accept all major credit cards, Apple Pay, Google Pay, and Shop Pay.</div>
     </div>
@@ -591,23 +594,23 @@
   <div class="ig-grid">
     <a href="https://www.instagram.com/p/DYYBCAXEnXz/" target="_blank" class="ig-item">
       <img src="https://hop.behold.pictures/eyJ1IjoidWp2QjdSWTBVU2RXNlJBWkZOY3FLdmNTeGV4MiIsImYiOiJIOFFOc1daTzIzVHdjSk9qR0NDSCIsInAiOiIxODM0OTMwNDg1MTIxMDYwMiIsImgiOiIxN2g1Y293In0.jpg?class=originalMedium" alt="Adoptare x Georgia Kids Belong"/>
-      <div class="ig-overlay"><div class="ig-likes">♥ 17 · View Post</div></div>
+    <div class="ig-overlay"><div class="ig-likes">{% render 'adoptare-icon', name: 'heart' %} 17 · View Post</div></div>
     </a>
     <a href="https://www.instagram.com/p/DYYBCAXEnXz/" target="_blank" class="ig-item">
       <img src="https://hop.behold.pictures/eyJ1IjoidWp2QjdSWTBVU2RXNlJBWkZOY3FLdmNTeGV4MiIsImYiOiJIOFFOc1daTzIzVHdjSk9qR0NDSCIsInAiOiIxODM0OTMwNDg1MTIxMDYwMiIsImgiOiJ0MXJuODAiLCJjIjoiMTgzOTIxNzYzMzkwODM4MTgifQ.jpg?class=originalMedium" alt="Adoptare tote bag"/>
-      <div class="ig-overlay"><div class="ig-likes">♥ 17 · View Post</div></div>
+    <div class="ig-overlay"><div class="ig-likes">{% render 'adoptare-icon', name: 'heart' %} 17 · View Post</div></div>
     </a>
     <a href="https://www.instagram.com/p/DWpDr04km-Q/" target="_blank" class="ig-item">
       <img src="https://hop.behold.pictures/eyJ1IjoidWp2QjdSWTBVU2RXNlJBWkZOY3FLdmNTeGV4MiIsImYiOiJIOFFOc1daTzIzVHdjSk9qR0NDSCIsInAiOiIxODEzOTczNjg3NTQ0Njc0NyIsImgiOiIxbXdkOWozIn0.jpg?class=originalMedium" alt="Adoptare launch post"/>
-      <div class="ig-overlay"><div class="ig-likes">♥ 29 · View Post</div></div>
+    <div class="ig-overlay"><div class="ig-likes">{% render 'adoptare-icon', name: 'heart' %} 29 · View Post</div></div>
     </a>
     <a href="https://www.instagram.com/p/DWpDr04km-Q/" target="_blank" class="ig-item">
       <img src="https://hop.behold.pictures/eyJ1IjoidWp2QjdSWTBVU2RXNlJBWkZOY3FLdmNTeGV4MiIsImYiOiJIOFFOc1daTzIzVHdjSk9qR0NDSCIsInAiOiIxODEzOTczNjg3NTQ0Njc0NyIsImgiOiIxeDI3cm1tIiwiYyI6IjE3OTIxMTMzOTkzMjk5MTMyIn0.jpg?class=originalMedium" alt="Adoptare clothing"/>
-      <div class="ig-overlay"><div class="ig-likes">♥ 29 · View Post</div></div>
+    <div class="ig-overlay"><div class="ig-likes">{% render 'adoptare-icon', name: 'heart' %} 29 · View Post</div></div>
     </a>
     <a href="https://www.instagram.com/p/DWpDr04km-Q/" target="_blank" class="ig-item">
       <img src="https://hop.behold.pictures/eyJ1IjoidWp2QjdSWTBVU2RXNlJBWkZOY3FLdmNTeGV4MiIsImYiOiJIOFFOc1daTzIzVHdjSk9qR0NDSCIsInAiOiIxODEzOTczNjg3NTQ0Njc0NyIsImgiOiIxcDR4bzEzIiwiYyI6IjE3OTIzNDc1MjgwMjcyMzI2In0.jpg?class=originalMedium" alt="Adoptare green hoodie"/>
-      <div class="ig-overlay"><div class="ig-likes">♥ 29 · View Post</div></div>
+    <div class="ig-overlay"><div class="ig-likes">{% render 'adoptare-icon', name: 'heart' %} 29 · View Post</div></div>
     </a>
     <a href="https://www.instagram.com/adoptare_est2026" target="_blank" class="ig-item" style="background:#111;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.75rem;">
       <div style="font-size:2rem;color:var(--accent);">+</div>
@@ -635,7 +638,7 @@
 <script async src="//www.instagram.com/embed.js"></script> {% endcomment %}
         {% comment %} <a href="https://www.instagram.com/p/DYYBCAXEnXz/" target="_blank" class="ig-item">
           <img src="https://hop.behold.pictures/eyJ1IjoidWp2QjdSWTBVU2RXNlJBWkZOY3FLdmNTeGV4MiIsImYiOiJIOFFOc1daTzIzVHdjSk9qR0NDSCIsInAiOiIxODM0OTMwNDg1MTIxMDYwMiIsImgiOiIxN2g1Y293In0.jpg?class=originalMedium" alt="Adoptare x Georgia Kids Belong"/>
-          <div class="ig-overlay"><div class="ig-likes">♥ 17 · View Post</div></div>
+          <div class="ig-overlay"><div class="ig-likes">{% render 'adoptare-icon', name: 'heart' %} 17 · View Post</div></div>
         </a> {% endcomment %}
     </div>
 
@@ -646,7 +649,7 @@
 <script async src="//www.instagram.com/embed.js"></script> {% endcomment %}
       {% comment %} <a href="https://www.instagram.com/p/DYYBCAXEnXz/" target="_blank" class="ig-item">
         <img src="https://hop.behold.pictures/eyJ1IjoidWp2QjdSWTBVU2RXNlJBWkZOY3FLdmNTeGV4MiIsImYiOiJIOFFOc1daTzIzVHdjSk9qR0NDSCIsInAiOiIxODM0OTMwNDg1MTIxMDYwMiIsImgiOiJ0MXJuODAiLCJjIjoiMTgzOTIxNzYzMzkwODM4MTgifQ.jpg?class=originalMedium" alt="Adoptare tote bag"/>
-        <div class="ig-overlay"><div class="ig-likes">♥ 17 · View Post</div></div>
+        <div class="ig-overlay"><div class="ig-likes">{% render 'adoptare-icon', name: 'heart' %} 17 · View Post</div></div>
       </a> {% endcomment %}
     </div>
 
@@ -657,7 +660,7 @@
 <script async src="//www.instagram.com/embed.js"></script> {% endcomment %}
       {% comment %} <a href="https://www.instagram.com/p/DWpDr04km-Q/" target="_blank" class="ig-item">
         <img src="https://hop.behold.pictures/eyJ1IjoidWp2QjdSWTBVU2RXNlJBWkZOY3FLdmNTeGV4MiIsImYiOiJIOFFOc1daTzIzVHdjSk9qR0NDSCIsInAiOiIxODEzOTczNjg3NTQ0Njc0NyIsImgiOiIxbXdkOWozIn0.jpg?class=originalMedium" alt="Adoptare launch post"/>
-        <div class="ig-overlay"><div class="ig-likes">♥ 29 · View Post</div></div>
+        <div class="ig-overlay"><div class="ig-likes">{% render 'adoptare-icon', name: 'heart' %} 29 · View Post</div></div>
       </a> {% endcomment %}
     </div>
 
@@ -668,7 +671,7 @@
 <script async src="//www.instagram.com/embed.js"></script> {% endcomment %}
       {% comment %} <a href="https://www.instagram.com/p/DWpDr04km-Q/" target="_blank" class="ig-item">
         <img src="https://hop.behold.pictures/eyJ1IjoidWp2QjdSWTBVU2RXNlJBWkZOY3FLdmNTeGV4MiIsImYiOiJIOFFOc1daTzIzVHdjSk9qR0NDSCIsInAiOiIxODEzOTczNjg3NTQ0Njc0NyIsImgiOiIxeDI3cm1tIiwiYyI6IjE3OTIxMTMzOTkzMjk5MTMyIn0.jpg?class=originalMedium" alt="Adoptare clothing"/>
-        <div class="ig-overlay"><div class="ig-likes">♥ 29 · View Post</div></div>
+        <div class="ig-overlay"><div class="ig-likes">{% render 'adoptare-icon', name: 'heart' %} 29 · View Post</div></div>
       </a> {% endcomment %}
     </div>
       
@@ -677,7 +680,7 @@
 <script async src="//www.instagram.com/embed.js"></script>
       {% comment %} <a href="https://www.instagram.com/p/DWpDr04km-Q/" target="_blank" class="ig-item">
         <img src="https://hop.behold.pictures/eyJ1IjoidWp2QjdSWTBVU2RXNlJBWkZOY3FLdmNTeGV4MiIsImYiOiJIOFFOc1daTzIzVHdjSk9qR0NDSCIsInAiOiIxODEzOTczNjg3NTQ0Njc0NyIsImgiOiIxcDR4bzEzIiwiYyI6IjE3OTIzNDc1MjgwMjcyMzI2In0.jpg?class=originalMedium" alt="Adoptare green hoodie"/>
-        <div class="ig-overlay"><div class="ig-likes">♥ 29 · View Post</div></div>
+        <div class="ig-overlay"><div class="ig-likes">{% render 'adoptare-icon', name: 'heart' %} 29 · View Post</div></div>
       </a> {% endcomment %}
     </div>
 
@@ -806,7 +809,7 @@
       <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;">Scholarships are need-based and awarded to individuals who demonstrate financial need and a commitment to their education.</p>
       <div style="margin-top:2rem;display:flex;flex-direction:column;gap:1rem;">
         <div style="background:var(--card-bg);border:1px solid var(--border);padding:1.25rem;display:flex;gap:1rem;align-items:flex-start;">
-          <div style="width:32px;height:32px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0;">✓</div>
+          <div style="width:32px;height:32px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;">{% render 'adoptare-icon', name: 'check' %}</div>
           <div><div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.25rem;">Who Qualifies</div><div style="font-size:0.72rem;color:var(--muted);line-height:1.5;">Current or former foster youth and adoptees pursuing post-secondary education.</div></div>
         </div>
         <div style="background:var(--card-bg);border:1px solid var(--border);padding:1.25rem;display:flex;gap:1rem;align-items:flex-start;">
@@ -866,13 +869,13 @@
   <div class="section-label">FAQ</div>
   <h2 class="section-title">Common Questions.</h2>
   <div class="faq-list">
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(0)">What is Adoptare?<span class="faq-icon" id="fi0">+</span></div><div class="faq-a" id="fa0"><div class="faq-a-inner">Adoptare is a nonprofit streetwear brand founded by Tristan Stuetzel, a 19-year-old former foster youth and adoptee. Our mission is to empower adoptees and foster youth through clothing initiatives and scholarships.</div></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(1)">Where does my money go?<span class="faq-icon" id="fi1">+</span></div><div class="faq-a" id="fa1"><div class="faq-a-inner">100% of clothing sale proceeds go directly toward scholarships for adoptees and foster youth. We keep overhead as low as possible so your purchase makes the biggest impact possible.</div></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(2)">Is Drop 001 available now?<span class="faq-icon" id="fi2">+</span></div><div class="faq-a" id="fa2"><div class="faq-a-inner">Yes! Drop 001 is live now. Scroll up to shop the collection directly on this page or visit adoptare.store.</div></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(3)">How do I apply for a scholarship?<span class="faq-icon" id="fi3">+</span></div><div class="faq-a" id="fa3"><div class="faq-a-inner">Scroll up to The David Scholarship section and fill out the application form. Scholarships are need-based and open to current and former foster youth and adoptees pursuing post-secondary education.</div></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(4)">What is your return policy?<span class="faq-icon" id="fi4">+</span></div><div class="faq-a" id="fa4"><div class="faq-a-inner">Contact us within 14 days of delivery at adoptareinfo@gmail.com. Items must be unworn and in original condition. We'll make it right.</div></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(5)">How long does shipping take?<span class="faq-icon" id="fi5">+</span></div><div class="faq-a" id="fa5"><div class="faq-a-inner">Orders ship within 3–5 business days. Standard US delivery takes 5–8 business days. International shipping is available at checkout.</div></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(6)">Is Adoptare a registered nonprofit?<span class="faq-icon" id="fi6">+</span></div><div class="faq-a" id="fa6"><div class="faq-a-inner">Adoptare is in its founding stage and actively pursuing 501(c)(3) nonprofit status. We are committed to full transparency as we grow and formalize the organization.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(0)">What is Adoptare?<span class="faq-icon" id="fi0">{% render 'adoptare-icon', name: 'plus' %}</span></div><div class="faq-a" id="fa0"><div class="faq-a-inner">Adoptare is a nonprofit streetwear brand founded by Tristan Stuetzel, a 19-year-old former foster youth and adoptee. Our mission is to empower adoptees and foster youth through clothing initiatives and scholarships.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(1)">Where does my money go?<span class="faq-icon" id="fi1">{% render 'adoptare-icon', name: 'plus' %}</span></div><div class="faq-a" id="fa1"><div class="faq-a-inner">100% of clothing sale proceeds go directly toward scholarships for adoptees and foster youth. We keep overhead as low as possible so your purchase makes the biggest impact possible.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(2)">Is Drop 001 available now?<span class="faq-icon" id="fi2">{% render 'adoptare-icon', name: 'plus' %}</span></div><div class="faq-a" id="fa2"><div class="faq-a-inner">Yes! Drop 001 is live now. Scroll up to shop the collection directly on this page or visit adoptare.store.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(3)">How do I apply for a scholarship?<span class="faq-icon" id="fi3">{% render 'adoptare-icon', name: 'plus' %}</span></div><div class="faq-a" id="fa3"><div class="faq-a-inner">Scroll up to The David Scholarship section and fill out the application form. Scholarships are need-based and open to current and former foster youth and adoptees pursuing post-secondary education.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(4)">What is your return policy?<span class="faq-icon" id="fi4">{% render 'adoptare-icon', name: 'plus' %}</span></div><div class="faq-a" id="fa4"><div class="faq-a-inner">Contact us within 14 days of delivery at adoptareinfo@gmail.com. Items must be unworn and in original condition. We'll make it right.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(5)">How long does shipping take?<span class="faq-icon" id="fi5">{% render 'adoptare-icon', name: 'plus' %}</span></div><div class="faq-a" id="fa5"><div class="faq-a-inner">Orders ship within 3–5 business days. Standard US delivery takes 5–8 business days. International shipping is available at checkout.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(6)">Is Adoptare a registered nonprofit?<span class="faq-icon" id="fi6">{% render 'adoptare-icon', name: 'plus' %}</span></div><div class="faq-a" id="fa6"><div class="faq-a-inner">Adoptare is in its founding stage and actively pursuing 501(c)(3) nonprofit status. We are committed to full transparency as we grow and formalize the organization.</div></div></div>
   </div>
 </section>
 
@@ -884,9 +887,9 @@
       <h2 class="section-title">Join the Movement.</h2>
       <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-top:1.5rem;">There are many ways to support Adoptare's mission. Whether you volunteer your time, donate clothing, or spread the word — every action counts.</p>
       <div class="volunteer-cards">
-        <div class="vol-card"><div class="vol-icon">★</div><div><div class="vol-title">Volunteer</div><div class="vol-desc">Help with events, outreach, and community programs supporting adoptees and foster youth.</div></div></div>
+        <div class="vol-card"><div class="vol-icon">{% render 'adoptare-icon', name: 'star' %}</div><div><div class="vol-title">Volunteer</div><div class="vol-desc">Help with events, outreach, and community programs supporting adoptees and foster youth.</div></div></div>
 
-        <div class="vol-card"><div class="vol-icon">◉</div><div><div class="vol-title">Spread the Word</div><div class="vol-desc">Follow us @adoptare_est2026 and share the mission with your community.</div></div></div>
+        <div class="vol-card"><div class="vol-icon">{% render 'adoptare-icon', name: 'broadcast' %}</div><div><div class="vol-title">Spread the Word</div><div class="vol-desc">Follow us @adoptare_est2026 and share the mission with your community.</div></div></div>
       </div>
     </div>
     <div>

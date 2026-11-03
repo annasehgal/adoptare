@@ -1,0 +1,32 @@
+{% doc %}
+  Renders an inline SVG icon for the custom Adoptare landing page.
+
+  @param {string} name - Icon name: box, refresh, card, heart, star, broadcast, check, or plus.
+  @param {string} [class] - Additional class names for the SVG.
+
+  @example
+  {% render 'adoptare-icon', name: 'box', class: 'shipping-icon__svg' %}
+{% enddoc %}
+
+{% liquid
+  assign icon_class = class | default: 'adoptare-icon'
+%}
+
+{% case name %}
+  {% when 'box' %}
+    <svg class="{{ icon_class }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-9 5-9-5 9-5 9 5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
+  {% when 'refresh' %}
+    <svg class="{{ icon_class }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8.1 8.1 0 0 0-14.9-3L3 11"/><path d="M3 5v6h6"/><path d="M4 13a8.1 8.1 0 0 0 14.9 3L21 13"/><path d="M21 19v-6h-6"/></svg>
+  {% when 'card' %}
+    <svg class="{{ icon_class }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 10h19"/><path d="M6 15h3"/></svg>
+  {% when 'heart' %}
+    <svg class="{{ icon_class }}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 20.5 3.8 12.9A5.5 5.5 0 0 1 11.6 5l.4.4.4-.4a5.5 5.5 0 0 1 7.8 7.9L12 20.5Z"/></svg>
+  {% when 'star' %}
+    <svg class="{{ icon_class }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></svg>
+  {% when 'broadcast' %}
+    <svg class="{{ icon_class }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2.5"/><path d="M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8M2.8 2.8a13 13 0 0 0 0 18.4M21.2 2.8a13 13 0 0 1 0 18.4"/></svg>
+  {% when 'check' %}
+    <svg class="{{ icon_class }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+  {% when 'plus' %}
+    <svg class="{{ icon_class }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+{% endcase %}
