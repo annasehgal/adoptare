@@ -10,29 +10,12 @@
 <meta property="og:url" content="https://adoptare.store"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <link rel="canonical" href="https://adoptare.store"/>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-867Y091BZV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-867Y091BZV');
-</script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   :root{--black:#0a0a0a;--white:#f5f5f0;--accent:#e8d5b0;--muted:#c8c8c0;--card-bg:#141414;--border:#2a2a2a;}
   body{background:var(--black);color:var(--white);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;overflow-x:hidden;scroll-behavior:smooth;}
   a{color:inherit;text-decoration:none;}
 
-  /* COOKIE BANNER */
-  .cookie-banner{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid var(--border);padding:1rem 2.5rem;display:flex;justify-content:space-between;align-items:center;z-index:300;gap:2rem;}
-  .cookie-banner.hidden{display:none;}
-  .cookie-text{font-size:0.72rem;color:var(--muted);line-height:1.6;max-width:600px;}
-  .cookie-text a{color:var(--accent);text-decoration:underline;}
-  .cookie-btns{display:flex;gap:0.75rem;flex-shrink:0;}
-  .cookie-accept{background:var(--white);color:var(--black);border:none;padding:0.5rem 1.25rem;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;cursor:pointer;}
-  .cookie-accept:hover{background:var(--accent);}
-  .cookie-decline{background:none;color:var(--muted);border:1px solid var(--border);padding:0.5rem 1.25rem;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;}
 
   /* BACK TO TOP */
   .back-to-top{position:fixed;bottom:5rem;right:2rem;background:var(--white);color:var(--black);border:none;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;z-index:99;opacity:0;transition:opacity 0.3s;font-weight:700;}
@@ -266,23 +249,48 @@
     .story-fields,.form-row{grid-template-columns:1fr;}
     footer{flex-direction:column;gap:1.5rem;text-align:center;}
     .footer-links{flex-wrap:wrap;justify-content:center;}
-    .cookie-banner{flex-direction:column;align-items:flex-start;}
   }
   @media(max-width:480px){
     .hero-actions{flex-direction:column;}
   }
 </style>
-{{ content_for_header }}</head>
+{{ content_for_header }}
+<!-- Google Analytics, gated on Shopify Customer Privacy (consent is managed by Shopify's native banner) -->
+<script>
+  (function(){
+    var GA_ID='G-867Y091BZV', gaLoaded=false;
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=window.gtag||function(){dataLayer.push(arguments);};
+    gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+    function applyConsent(){
+      var cp=window.Shopify&&window.Shopify.customerPrivacy;
+      if(!cp) return;
+      var analytics=cp.analyticsProcessingAllowed();
+      var ads=cp.marketingAllowed()&&cp.saleOfDataAllowed();
+      gtag('consent','update',{
+        analytics_storage:analytics?'granted':'denied',
+        ad_storage:ads?'granted':'denied',
+        ad_user_data:ads?'granted':'denied',
+        ad_personalization:ads?'granted':'denied'
+      });
+      if(analytics&&!gaLoaded){
+        gaLoaded=true;
+        var s=document.createElement('script');
+        s.async=true;
+        s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;
+        document.head.appendChild(s);
+        gtag('js',new Date());
+        gtag('config',GA_ID);
+      }
+    }
+    document.addEventListener('visitorConsentCollected',applyConsent);
+    if(window.Shopify&&window.Shopify.loadFeatures){
+      window.Shopify.loadFeatures([{name:'consent-tracking-api',version:'0.1'}],function(err){if(!err) applyConsent();});
+    }
+  })();
+</script>
+</head>
 <body>
-
-<!-- COOKIE BANNER -->
-<div class="cookie-banner" id="cookie-banner">
-  <div class="cookie-text">We use cookies to improve your experience on our site. By continuing to browse, you agree to our use of cookies. <a href="#">Learn more</a></div>
-  <div class="cookie-btns">
-    <button class="cookie-accept" onclick="acceptCookies()">Accept</button>
-    <button class="cookie-decline" onclick="declineCookies()">Decline</button>
-  </div>
-</div>
 
 <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
@@ -958,11 +966,6 @@
   // Back to top
   const backBtn=document.getElementById('back-to-top');
   window.addEventListener('scroll',()=>{backBtn.classList.toggle('visible',window.scrollY>400);});
-
-  // Cookie banner
-  if(localStorage.getItem('adoptare_cookies')){document.getElementById('cookie-banner').classList.add('hidden');}
-  function acceptCookies(){localStorage.setItem('adoptare_cookies','accepted');document.getElementById('cookie-banner').classList.add('hidden');}
-  function declineCookies(){localStorage.setItem('adoptare_cookies','declined');document.getElementById('cookie-banner').classList.add('hidden');}
 
   // Newsletter popup
   setTimeout(()=>{if(!localStorage.getItem('adoptare_popup')){document.getElementById('newsletter-popup').classList.add('active');}},10000);
