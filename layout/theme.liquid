@@ -3,13 +3,24 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+{%- if template.name == 'index' -%}
 <title>Adoptare — Every Origin Matters</title>
 <meta name="description" content="Adoptare is a nonprofit streetwear brand empowering adoptees and foster youth through clothing initiatives and scholarships. Every origin matters."/>
 <meta property="og:title" content="Adoptare — Every Origin Matters"/>
 <meta property="og:description" content="Empowering adoptees and foster youth through clothing and scholarships. Shop Drop 001 now."/>
-<meta property="og:url" content="https://adoptare.store"/>
+{%- else -%}
+<title>{{ page_title | escape }} — Adoptare</title>
+{%- if page_description -%}
+<meta name="description" content="{{ page_description | escape }}"/>
+{%- endif -%}
+<meta property="og:title" content="{{ page_title | escape }} — Adoptare"/>
+{%- if page_description -%}
+<meta property="og:description" content="{{ page_description | escape }}"/>
+{%- endif -%}
+{%- endif -%}
+<meta property="og:url" content="{{ canonical_url }}"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<link rel="canonical" href="https://adoptare.store"/>
+<link rel="canonical" href="{{ canonical_url }}"/>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   :root{--black:#0a0a0a;--white:#f5f5f0;--accent:#e8d5b0;--muted:#c8c8c0;--card-bg:#141414;--border:#2a2a2a;}
@@ -238,6 +249,14 @@
   .footer-links span{cursor:pointer;}
   .footer-links span:hover,.footer-links a:hover{color:var(--white);}
 
+  /* NON-HOME PAGES (policies, privacy choices, contact, etc.) — nav is fixed, so offset the content */
+  .page-main{max-width:860px;margin:0 auto;padding:8rem 2.5rem 5rem;line-height:1.7;min-height:60vh;overflow-wrap:anywhere;}
+  .page-main h1,.page-main h2,.page-main h3{line-height:1.2;margin:0 0 1rem;}
+  .page-main h1{font-size:clamp(2rem,5vw,3rem);}
+  .page-main p,.page-main li{color:var(--muted);margin-bottom:1rem;}
+  .page-main a{color:var(--accent);text-decoration:underline;}
+  .page-main img{max-width:100%;height:auto;}
+
   @media(max-width:768px){
     nav{padding:1rem 1.25rem;}
     .nav-links{display:none;}
@@ -249,6 +268,7 @@
     .story-fields,.form-row{grid-template-columns:1fr;}
     footer{flex-direction:column;gap:1.5rem;text-align:center;}
     .footer-links{flex-wrap:wrap;justify-content:center;}
+    .page-main{padding:6rem 1.25rem 4rem;}
   }
   @media(max-width:480px){
     .hero-actions{flex-direction:column;}
@@ -401,6 +421,12 @@
   <button class="nav-cta" onclick="window.open('https://venmo.com/Adoptare','_blank')">Donate</button>
 </nav>
 
+{%- comment -%}
+  The one-page ADOPTARE homepage is hardcoded below and only renders on the index template.
+  Every other template (policies, privacy choices, contact, products, cart…) renders its own
+  content via content_for_layout between the shared nav and footer.
+{%- endcomment -%}
+{%- if template.name == 'index' -%}
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
@@ -923,6 +949,11 @@
     </div>
   </div>
 </section>
+{%- else -%}
+<main class="page-main" id="main-content">
+  {{ content_for_layout }}
+</main>
+{%- endif -%}
 
 <!-- FOOTER -->
 <footer>
@@ -937,12 +968,21 @@
     <span onclick="scroll2('volunteer')">Volunteer</span>
     <a href="https://www.instagram.com/adoptare_est2026" target="_blank">Instagram</a>
     <span onclick="document.getElementById('contact-popup').classList.add('active')">Contact</span>
+    {%- if shop.privacy_policy -%}
+      <a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title | escape }}</a>
+    {%- endif -%}
+    {%- assign privacy_choices_page = pages['data-sharing-opt-out'] -%}
+    {%- if privacy_choices_page.url != blank -%}
+      <a href="{{ privacy_choices_page.url }}">{{ privacy_choices_page.title | escape }}</a>
+    {%- endif -%}
   </div>
 </footer>
 
 <script>
-  function scroll2(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+  // Homepage sections only exist on the index template; elsewhere, jump to them on the homepage.
+  function scroll2(id){var el=document.getElementById(id);if(el){el.scrollIntoView({behavior:'smooth'});}else{window.location.href='{{ routes.root_url }}#'+id;}}
 
+  {% if template.name == 'index' %}
   // Film grain noise
   (function(){
     const c=document.getElementById('noise-canvas');
@@ -962,6 +1002,7 @@
     }
     grain();
   })();
+  {% endif %}
 
   // Back to top
   const backBtn=document.getElementById('back-to-top');
@@ -1101,9 +1142,11 @@ These sweatpants have a 90s vibe, with thick fleece and a roomy, street-style fi
   function hideProductDescriptionTooltip(){if(productDescriptionTooltip)productDescriptionTooltip.classList.remove('active');}
 
   // Scholarship tracker — update the raised amount here when you have real data
+  {% if template.name == 'index' %}
   var raised=546, goal=1000;
   document.getElementById('tracker-raised').textContent='$'+raised.toLocaleString()+' raised';
   setTimeout(()=>{document.getElementById('tracker-bar').style.width=(raised/goal*100)+'%';},500);
+  {% endif %}
 
   // Size guide tabs
   function showSizeTab(tab,btn){
@@ -1179,5 +1222,7 @@ These sweatpants have a 90s vibe, with thick fleece and a roomy, street-style fi
     catch{msg.style.display='block';msg.style.color='#e87070';msg.textContent='Something went wrong. Try again.';}
   }
 </script>
-{{ content_for_layout }}</body>
+{%- comment -%} Keeps the homepage exactly as before: index.json sections still render after the hardcoded page. {%- endcomment -%}
+{%- if template.name == 'index' -%}{{ content_for_layout }}{%- endif -%}
+</body>
 </html>
