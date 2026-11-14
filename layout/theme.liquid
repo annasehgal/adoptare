@@ -4,16 +4,16 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 {%- if template.name == 'index' -%}
-<title>Adoptare — Every Origin Matters</title>
+<title>Adoptare: Every Origin Matters</title>
 <meta name="description" content="Adoptare is a nonprofit streetwear brand empowering adoptees and foster youth through clothing initiatives and scholarships. Every origin matters."/>
-<meta property="og:title" content="Adoptare — Every Origin Matters"/>
+<meta property="og:title" content="Adoptare: Every Origin Matters"/>
 <meta property="og:description" content="Empowering adoptees and foster youth through clothing and scholarships. Shop Drop 001 now."/>
 {%- else -%}
-<title>{{ page_title | escape }} — Adoptare</title>
+<title>{{ page_title | escape }}, Adoptare</title>
 {%- if page_description -%}
 <meta name="description" content="{{ page_description | escape }}"/>
 {%- endif -%}
-<meta property="og:title" content="{{ page_title | escape }} — Adoptare"/>
+<meta property="og:title" content="{{ page_title | escape }}, Adoptare"/>
 {%- if page_description -%}
 <meta property="og:description" content="{{ page_description | escape }}"/>
 {%- endif -%}
@@ -158,7 +158,7 @@
   .section-label{font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;}
   .section-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;text-transform:uppercase;line-height:1;letter-spacing:-0.01em;}
 
-  .mission{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;border-top:1px solid var(--border);}
+  .mission{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;border-top:1px solid var(--border);padding-top:3rem;}
   .mission-right{color:var(--muted);font-size:1.05rem;line-height:1.85;}
   .mission-right strong{color:var(--white);font-weight:500;}
   .mission-pill{display:inline-block;margin-top:2rem;background:var(--card-bg);border:1px solid var(--border);padding:0.5rem 1.25rem;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);}
@@ -229,6 +229,29 @@
   .vol-title{font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;}
   .vol-desc{font-size:0.75rem;color:var(--muted);line-height:1.5;}
 
+  /* WAITLIST */
+  .waitlist{background:#0f0f0f;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .waitlist-inner{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);gap:5rem;align-items:center;max-width:1180px;margin:0 auto;}
+  .waitlist-copy{max-width:36rem;}
+  .waitlist-title{font-size:clamp(2.5rem,6vw,5rem);font-weight:800;text-transform:uppercase;line-height:0.92;letter-spacing:-0.03em;max-width:10ch;}
+  .waitlist-description{margin-top:1.5rem;max-width:30rem;color:var(--muted);font-size:0.95rem;line-height:1.8;}
+  .waitlist-promise{display:flex;gap:0.75rem;align-items:center;margin-top:2rem;color:var(--accent);font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;}
+  .waitlist-promise::before{content:'';display:block;width:2rem;height:1px;background:var(--accent);}
+  .waitlist-form-wrap{background:var(--black);border:1px solid var(--border);border-top:2px solid var(--accent);padding:2rem;}
+  .waitlist-form-label{display:block;margin-bottom:0.75rem;color:var(--white);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;}
+  .waitlist-form{display:flex;flex-direction:column;gap:0.75rem;}
+  .waitlist-input{width:100%;background:#111;border:1px solid var(--border);color:var(--white);padding:0.95rem 1rem;font-size:0.9rem;font-family:inherit;outline:none;}
+  .waitlist-input:focus-visible{border-color:var(--accent);box-shadow:0 0 0 2px rgba(232,213,176,0.2);}
+  .waitlist-input[aria-invalid='true']{border-color:#e87070;}
+  .waitlist-submit{display:flex;align-items:center;justify-content:center;min-height:3rem;background:var(--white);color:var(--black);padding:0.9rem 2rem;font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;cursor:pointer;border:none;transition:background 0.2s, color 0.2s;}
+  .waitlist-submit:hover:not(:disabled){background:var(--accent);}
+  .waitlist-submit:disabled{cursor:wait;opacity:0.7;}
+  .waitlist-status{min-height:1.25rem;margin:0.25rem 0 0;color:var(--muted);font-size:0.72rem;line-height:1.5;}
+  .waitlist-status[data-state='success']{color:var(--accent);}
+  .waitlist-status[data-state='error']{color:#e87070;}
+  .waitlist-footnote{margin-top:1rem;color:#777;font-size:0.65rem;line-height:1.5;}
+  .visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;}
+
   .form-wrap{display:flex;flex-direction:column;gap:1rem;}
   .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
   .field select{appearance:none;cursor:pointer;}
@@ -249,7 +272,7 @@
   .footer-links span{cursor:pointer;}
   .footer-links span:hover,.footer-links a:hover{color:var(--white);}
 
-  /* NON-HOME PAGES (policies, privacy choices, contact, etc.) — nav is fixed, so offset the content */
+  /* NON-HOME PAGES (policies, privacy choices, contact, etc.), nav is fixed, so offset the content */
   .page-main{max-width:860px;margin:0 auto;padding:8rem 2.5rem 5rem;line-height:1.7;min-height:60vh;overflow-wrap:anywhere;}
   .page-main h1,.page-main h2,.page-main h3{line-height:1.2;margin:0 0 1rem;}
   .page-main h1{font-size:clamp(2rem,5vw,3rem);}
@@ -263,6 +286,8 @@
     .hero{padding:0 1.25rem 3rem;}
     section{padding:4rem 1.25rem;}
     .mission,.volunteer-inner,.scholarship-inner{grid-template-columns:1fr;gap:2.5rem;}
+    .mission{padding-top:2.25rem;}
+    .waitlist-inner{grid-template-columns:1fr;gap:2.5rem;}
     .impact-grid,.shipping-grid{grid-template-columns:1fr;}
     .stories-grid,.press-grid{grid-template-columns:1fr;}
     .story-fields,.form-row{grid-template-columns:1fr;}
@@ -372,9 +397,9 @@
     </div>
     <div id="tab-cap" style="display:none;">
       <table class="size-table"><thead><tr><th>Item</th><th>Details</th></tr></thead><tbody>
-        <tr><td>5 Panel Cap</td><td>Adjustable snap closure — one size fits most</td></tr>
+        <tr><td>5 Panel Cap</td><td>Adjustable snap closure, one size fits most</td></tr>
         <tr><td>Tote Bag</td><td>16″ × 14½″ × 5″ · 30 lb weight limit</td></tr>
-        <tr><td>Stickers</td><td>Standard size — see product listing for dimensions</td></tr>
+        <tr><td>Stickers</td><td>Standard size, see product listing for dimensions</td></tr>
       </tbody></table>
     </div>
     <p style="font-size:0.65rem;color:var(--muted);margin-top:1.25rem;line-height:1.6;">Questions about sizing? Email us at <span style="color:var(--accent);">adoptareinfo@gmail.com</span></p>
@@ -385,12 +410,10 @@
 <div class="popup-overlay" id="newsletter-popup">
   <div class="popup">
     <button class="popup-close" aria-label="Close newsletter signup" onclick="closePopup()">{{ 'icon-close.svg' | inline_asset_content }}</button>
-    <div class="popup-tag">Join the Movement · Adoptare Est. 2026</div>
-    <div class="popup-title">Stay in the Loop.</div>
-    <div class="popup-sub">Be the first to know about new drops, scholarships, and everything Adoptare. No spam — just the movement.</div>
-    <input class="popup-input" type="email" id="popup-email" placeholder="Your email address"/>
-    <button class="popup-btn" onclick="submitPopup()">Notify Me →</button>
-    <p class="popup-msg" id="popup-msg"></p>
+    <div class="popup-tag">The Next Chapter · Adoptare Est. 2026</div>
+    <div class="popup-title">Be the First to Know.</div>
+    <div class="popup-sub">Get first access to future drops, scholarship updates, and the moments that move Adoptare forward.</div>
+    <button class="popup-btn" onclick="closePopup();scroll2('waitlist')">Join the Waitlist →</button>
   </div>
 </div>
 
@@ -415,6 +438,7 @@
     <span onclick="scroll2('scholarship')">Scholarship</span>
     <span onclick="scroll2('faq')">FAQ</span>
     <span onclick="scroll2('volunteer')">Volunteer</span>
+    <span onclick="scroll2('waitlist')">Waitlist</span>
     <a href="https://www.instagram.com/adoptare_est2026" target="_blank">Instagram</a>
     <span onclick="document.getElementById('contact-popup').classList.add('active')">Contact</span>
   </div>
@@ -427,6 +451,36 @@
   content via content_for_layout between the shared nav and footer.
 {%- endcomment -%}
 {%- if template.name == 'index' -%}
+<!-- WAITLIST, temporary landing section for launch weekend -->
+<section id="waitlist" class="waitlist" aria-labelledby="waitlist-title">
+  <div class="waitlist-inner">
+    <div class="waitlist-copy">
+      <div class="section-label">The Next Chapter</div>
+      <h2 class="waitlist-title" id="waitlist-title">Be the First to Know.</h2>
+      <p class="waitlist-description">Get first access to future drops, scholarship updates, and the moments that move Adoptare forward. One email when it matters, nothing more.</p>
+      <div class="waitlist-promise">Wear your story with us</div>
+    </div>
+    <div class="waitlist-form-wrap">
+      <div class="waitlist-form-label">Join the waitlist</div>
+      {% assign waitlist_return_to = routes.root_url | append: '#waitlist' %}
+      {% form 'customer', id: 'waitlist-form', class: 'waitlist-form', return_to: waitlist_return_to %}
+        <input type="hidden" name="contact[tags]" value="adoptare-waitlist">
+        <label class="visually-hidden" for="waitlist-email">Email address</label>
+        <input class="waitlist-input" id="waitlist-email" type="email" name="contact[email]" value="{{ form.email }}" placeholder="Your email address" autocomplete="email" autocapitalize="off" spellcheck="false" required aria-describedby="waitlist-status waitlist-footnote">
+        <button class="waitlist-submit" id="waitlist-submit" type="submit">Join the Waitlist</button>
+        <div class="waitlist-status" id="waitlist-status" role="status" aria-live="polite">
+          {%- if form.posted_successfully? -%}
+            You're on the list. We'll be in touch when the next chapter begins.
+          {%- elsif form.errors -%}
+            {{ form.errors | default_errors }}
+          {%- endif -%}
+        </div>
+        <p class="waitlist-footnote" id="waitlist-footnote">By joining, you agree to receive occasional Adoptare updates. Unsubscribe anytime.</p>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
@@ -453,19 +507,19 @@
 </div>
 
 <!-- FOUNDER -->
-<section id="founder" style="border-top:1px solid var(--border);">
+<section id="founder">
   <div style="max-width:680px;">
     <div class="section-label">The Founder</div>
     <h2 class="section-title" style="margin-bottom:0.75rem;">Tristan Stuetzel.</h2>
     <div style="font-size:0.72rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:2.5rem;">Founder & Director · Chico State, Class of '29 · First-Generation College Student</div>
     <div style="font-size:1rem;line-height:1.95;color:var(--muted);">
-      <p>At 5 years old, I was taken by social services. My little brother was 1. We bounced from placement to placement — two kids with no certainty of where we'd end up, growing up in motels, not knowing what came next.</p><br/>
+      <p>At 5 years old, I was taken by social services. My little brother was 1. We bounced from placement to placement, two kids with no certainty of where we'd end up, growing up in motels, not knowing what came next.</p><br/>
       <p>We got lucky. A family took us both in and gave us opportunities we couldn't have imagined. I can't give them enough credit. They changed our trajectory completely.</p><br/>
-      <p>But we have another little brother who didn't come with us. He's still out there — one of the kids the system leaves behind. <span style="color:var(--white);">He's the reason Adoptare exists.</span></p><br/>
-      <p>From a young age I was told I was different — that I wouldn't graduate high school, that I'd end up a statistic. I refused to believe it. I broke the cycle. I'm now a 19-year-old first-generation college student at Chico State, and everything I do is to prove to my brothers that we are not defined by what happened to us.</p><br/>
-      <p style="color:var(--white);font-size:1.05rem;font-weight:500;border-left:2px solid var(--accent);padding-left:1.25rem;line-height:1.7;">"We are not doomed by our story. It's our origin that defines us — and every foster kid and adoptee should be proud enough to wear it."</p>
+      <p>But we have another little brother who didn't come with us. He's still out there, one of the kids the system leaves behind. <span style="color:var(--white);">He's the reason Adoptare exists.</span></p><br/>
+      <p>From a young age I was told I was different, that I wouldn't graduate high school, that I'd end up a statistic. I refused to believe it. I broke the cycle. I'm now a 19-year-old first-generation college student at Chico State, and everything I do is to prove to my brothers that we are not defined by what happened to us.</p><br/>
+      <p style="color:var(--white);font-size:1.05rem;font-weight:500;border-left:2px solid var(--accent);padding-left:1.25rem;line-height:1.7;">"We are not doomed by our story. It's our origin that defines us, and every foster kid and adoptee should be proud enough to wear it."</p>
       <br/>
-      <p style="color:var(--muted);font-size:0.85rem;font-style:italic;border-top:1px solid var(--border);padding-top:1.5rem;">This is for my little brother David — we were told we'd never amount to anything. I need you to know that nothing we went through changes what we are capable of. Don't give up. This one's for you.</p>
+      <p style="color:var(--muted);font-size:0.85rem;font-style:italic;border-top:1px solid var(--border);padding-top:1.5rem;">This is for my little brother David, we were told we'd never amount to anything. I need you to know that nothing we went through changes what we are capable of. Don't give up. This one's for you.</p>
     </div>
   </div>
 </section>
@@ -476,11 +530,11 @@
     <div>
       <div class="section-label">Our Mission</div>
       <h2 class="section-title">More Than Clothing.</h2>
-      <div class="mission-pill">Adoptare — To Adopt</div>
+      <div class="mission-pill">Adoptare: To Adopt</div>
     </div>
     <div class="mission-right">
       <p>Adoptare exists to <strong>empower adopted youth</strong> by providing scholarships funded through clothing initiatives. We believe that every young person deserves to step into their future with confidence, resources, and a community behind them.</p><br/>
-      <p>We celebrate adoption as a core part of identity — not something to be hidden, but something to be <strong>worn with pride</strong>. Every piece you purchase directly funds educational opportunities for adoptees and foster kids nationwide.</p><br/>
+      <p>We celebrate adoption as a core part of identity, not something to be hidden, but something to be <strong>worn with pride</strong>. Every piece you purchase directly funds educational opportunities for adoptees and foster kids nationwide.</p><br/>
       <p><strong>Your origins matter. Your story is power.</strong></p>
     </div>
   </div>
@@ -506,7 +560,7 @@
     <div class="tracker-bar-wrap"><div class="tracker-bar" id="tracker-bar"></div></div>
     <div class="tracker-stats">
       <span class="tracker-raised" id="tracker-raised">$0 raised</span>
-      <span class="tracker-goal">Goal: $1,000 — First Scholarship</span>
+    <span class="tracker-goal">Goal: $1,000, First Scholarship</span>
     </div>
   </div>
 
@@ -601,7 +655,7 @@
 <section id="stories" style="border-top:1px solid var(--border);">
   <div class="section-label">Community</div>
   <h2 class="section-title">Your Stories.</h2>
-  <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-top:1rem;max-width:560px;">Every origin matters. Share yours — adoptee, foster youth, advocate, or ally. This is your space.</p>
+  <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-top:1rem;max-width:560px;">Every origin matters. Share yours, adoptee, foster youth, advocate, or ally. This is your space.</p>
   <div class="stories-grid">
     <div class="story-card"><div class="story-quote">"I aged out at 18 with nothing. Finding a community that celebrates where I came from instead of hiding it changed everything for me."</div><div class="story-author">Former Foster Youth · California</div></div>
     <div class="story-card"><div class="story-quote">"I was always told my adoption was something to be ashamed of. Adoptare made me realize my story is my strength."</div><div class="story-author">Adoptee · Texas</div></div>
@@ -838,7 +892,7 @@
     <div>
       <div class="section-label">The David Scholarship</div>
       <h2 class="section-title">Apply for the<br/>David Scholarship.</h2>
-      <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-top:1.5rem;">The David Scholarship is named after my little brother David. We grew up being told we'd never amount to anything. This scholarship exists to prove that wrong — for him, and for every adoptee and foster youth who was told the same thing. Where you come from does not determine where you're going.</p>
+      <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-top:1.5rem;">The David Scholarship is named after my little brother David. We grew up being told we'd never amount to anything. This scholarship exists to prove that wrong, for him, and for every adoptee and foster youth who was told the same thing. Where you come from does not determine where you're going.</p>
       <br/>
       <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;">Scholarships are need-based and awarded to individuals who demonstrate financial need and a commitment to their education.</p>
       <div style="margin-top:2rem;display:flex;flex-direction:column;gap:1rem;">
@@ -885,11 +939,11 @@
   <div class="press-grid">
     <div class="press-card">
       <div class="press-source">Georgia Kids Belong</div>
-      <div class="press-quote">"Adoptare donated 30 tote bags to foster youth at the I Belong Project — a brand that truly walks the walk."</div>
+      <div class="press-quote">"Adoptare donated 30 tote bags to foster youth at the I Belong Project, a brand that truly walks the walk."</div>
     </div>
     <div class="press-card">
       <div class="press-source">Elevator Pitch Competition · 2026</div>
-      <div class="press-quote">"A 19-year-old former foster youth building a nonprofit streetwear brand to fund scholarships — Adoptare is one to watch."</div>
+      <div class="press-quote">"A 19-year-old former foster youth building a nonprofit streetwear brand to fund scholarships, Adoptare is one to watch."</div>
     </div>
     <div class="press-card">
       <div class="press-source">America's Kids Belong</div>
@@ -919,7 +973,7 @@
     <div>
       <div class="section-label">Get Involved</div>
       <h2 class="section-title">Join the Movement.</h2>
-      <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-top:1.5rem;">There are many ways to support Adoptare's mission. Whether you volunteer your time, donate clothing, or spread the word — every action counts.</p>
+      <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;margin-top:1.5rem;">There are many ways to support Adoptare's mission. Whether you volunteer your time, donate clothing, or spread the word, every action counts.</p>
       <div class="volunteer-cards">
         <div class="vol-card"><div class="vol-icon">{% render 'adoptare-icon', name: 'star' %}</div><div><div class="vol-title">Volunteer</div><div class="vol-desc">Help with events, outreach, and community programs supporting adoptees and foster youth.</div></div></div>
 
@@ -959,13 +1013,14 @@
 <footer>
   <div>
     <div class="footer-logo">Adoptare</div>
-    <div class="footer-tagline" style="margin-top:0.4rem;">Wear Your Story — Est. 2026</div>
+    <div class="footer-tagline" style="margin-top:0.4rem;">Wear Your Story, Est. 2026</div>
   </div>
   <div class="footer-links">
     <span onclick="scroll2('mission')">Mission</span>
     <span onclick="scroll2('shop')">Shop</span>
     <span onclick="scroll2('scholarship')">Scholarship</span>
     <span onclick="scroll2('volunteer')">Volunteer</span>
+    <span onclick="scroll2('waitlist')">Waitlist</span>
     <a href="https://www.instagram.com/adoptare_est2026" target="_blank">Instagram</a>
     <span onclick="document.getElementById('contact-popup').classList.add('active')">Contact</span>
     {%- if shop.privacy_policy -%}
@@ -1045,7 +1100,7 @@
 • Wide neck ribbing
 • Tear-away label
 • Blank product sourced from China`,
-  '7663635726403':`This classic crew-neck tee delivers unmatched comfort, versatility, and blank-canvas appeal. Crafted with a soft-washed finish and premium combed ring-spun cotton, it’s designed for everyday wear and superior printability — making it ideal for casual outfits, bold designs, custom projects, and brand-ready pieces.
+  '7663635726403':`This classic crew-neck tee delivers unmatched comfort, versatility, and blank-canvas appeal. Crafted with a soft-washed finish and premium combed ring-spun cotton, it’s designed for everyday wear and superior printability, making it ideal for casual outfits, bold designs, custom projects, and brand-ready pieces.
 - 100% combed ring-spun cotton
 - Fabric weight: 5.5 oz/yd² (180g/m²)
 - Side-seamed construction
@@ -1141,11 +1196,11 @@ These sweatpants have a 90s vibe, with thick fleece and a roomy, street-style fi
   }
   function hideProductDescriptionTooltip(){if(productDescriptionTooltip)productDescriptionTooltip.classList.remove('active');}
 
-  // Scholarship tracker — update the raised amount here when you have real data
+  // Scholarship tracker, update the raised amount in Theme Settings when you have real data
   {% if template.name == 'index' %}
-  var raised=546, goal=1000;
+  var raised={{ settings.scholarship_items_sold | default: 585 | json }}, goal={{ settings.scholarship_sales_goal | default: 1000 | json }};
   document.getElementById('tracker-raised').textContent='$'+raised.toLocaleString()+' raised';
-  setTimeout(()=>{document.getElementById('tracker-bar').style.width=(raised/goal*100)+'%';},500);
+  setTimeout(()=>{document.getElementById('tracker-bar').style.width=((goal>0?Math.min(raised/goal,1):0)*100)+'%';},500);
   {% endif %}
 
   // Size guide tabs
@@ -1181,6 +1236,76 @@ These sweatpants have a 90s vibe, with thick fleece and a roomy, street-style fi
   // Forms
   async function post(data){return fetch('https://formspree.io/f/meepbjwb',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});}
 
+  // Waitlist, Shopify's native customer form is the server-side persistence layer.
+  (function(){
+    const form=document.getElementById('waitlist-form');
+    if(!form)return;
+    const input=document.getElementById('waitlist-email');
+    const button=document.getElementById('waitlist-submit');
+    const status=document.getElementById('waitlist-status');
+    const defaultLabel=button.textContent;
+
+    function setStatus(message,state){
+      status.textContent=message;
+      status.dataset.state=state||'';
+    }
+
+    function savedEmail(){
+      try{return window.localStorage.getItem('adoptare_waitlist_email')||'';}
+      catch{return '';}
+    }
+
+    function rememberEmail(email){
+      try{window.localStorage.setItem('adoptare_waitlist_email',email);}
+      catch{}
+    }
+
+    form.addEventListener('submit',async function(event){
+      if(form.dataset.nativeSubmit==='true')return;
+      input.value=input.value.trim();
+      input.removeAttribute('aria-invalid');
+
+      if(!input.checkValidity()){
+        event.preventDefault();
+        input.setAttribute('aria-invalid','true');
+        setStatus('Enter a valid email address to join the waitlist.','error');
+        input.focus();
+        return;
+      }
+
+      const email=input.value.toLowerCase();
+      if(savedEmail()===email){
+        event.preventDefault();
+        setStatus("You're already on the waitlist. We'll be in touch when there's news.",'success');
+        return;
+      }
+
+      event.preventDefault();
+      if(form.dataset.submitting==='true')return;
+      form.dataset.submitting='true';
+      button.disabled=true;
+      button.textContent='Joining...';
+      setStatus('Adding you to the list…','');
+
+      try{
+        const response=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'text/html'},redirect:'follow'});
+        const responseUrl=new URL(response.url,window.location.href);
+        const postedSuccessfully=response.ok&&responseUrl.searchParams.get('customer_posted')==='true';
+        if(!postedSuccessfully)throw new Error('Waitlist submission was not accepted.');
+        rememberEmail(email);
+        setStatus("You're on the list. We'll be in touch when the next chapter begins.",'success');
+        button.textContent='You’re In';
+      }catch(error){
+        // Let Shopify's native form flow handle challenge-protected responses.
+        // This preserves progressive enhancement when the preview/store blocks fetch.
+        form.dataset.nativeSubmit='true';
+        form.requestSubmit();
+      }finally{
+        form.dataset.submitting='false';
+      }
+    });
+  })();
+
   async function submitForm(){
     const btn=document.getElementById('submit-btn'),msg=document.getElementById('form-msg');
     const data={fname:document.getElementById('fname').value,lname:document.getElementById('lname').value,email:document.getElementById('email').value,help:document.getElementById('help').value,message:document.getElementById('message').value,type:'Volunteer Signup'};
@@ -1215,12 +1340,6 @@ These sweatpants have a 90s vibe, with thick fleece and a roomy, street-style fi
     catch{msg.style.display='block';msg.style.color='#e87070';msg.textContent='Something went wrong. Try again.';}
   }
 
-  async function submitPopup(){
-    const email=document.getElementById('popup-email').value,msg=document.getElementById('popup-msg');
-    if(!email){msg.style.display='block';msg.style.color='#e87070';msg.textContent='Please enter your email.';return;}
-    try{await post({email,type:'Newsletter Signup'});msg.style.display='block';msg.style.color='var(--accent)';msg.textContent="You're in. Welcome to the movement.";localStorage.setItem('adoptare_popup','true');setTimeout(closePopup,2000);}
-    catch{msg.style.display='block';msg.style.color='#e87070';msg.textContent='Something went wrong. Try again.';}
-  }
 </script>
 {%- comment -%} Keeps the homepage exactly as before: index.json sections still render after the hardcoded page. {%- endcomment -%}
 {%- if template.name == 'index' -%}{{ content_for_layout }}{%- endif -%}

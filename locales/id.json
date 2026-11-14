@@ -290,7 +290,7 @@
       "subtext": "Voucher Anda",
       "shop_link": "Kunjungi toko online",
       "add_to_apple_wallet": "Tambahkan ke Dompet Apple",
-      "qr_image_alt": "Kode QR — pindai untuk menukarkan voucher",
+      "qr_image_alt": "Kode QR, pindai untuk menukarkan voucher",
       "copy_code": "Salin kode voucher",
       "expiration_date": "Kedaluwarsa pada {{ expires_on }}",
       "copy_code_success": "Kode berhasil disalin",

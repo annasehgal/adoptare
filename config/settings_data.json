@@ -76,6 +76,8 @@
     "variant_button_border_width": 1,
     "variant_button_radius": 14,
     "variant_button_width": "equal-width-buttons",
+    "scholarship_items_sold": 585,
+    "scholarship_sales_goal": 1000,
     "sections": {
       "password-footer": {
         "type": "password-footer",

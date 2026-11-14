@@ -2284,5 +2284,23 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Scholarship tracker",
+    "settings": [
+      {
+        "type": "number",
+        "id": "scholarship_items_sold",
+        "label": "Scholarship amount raised",
+        "info": "Update this after completed product purchases. Venmo donations are not included.",
+        "default": 585
+      },
+      {
+        "type": "number",
+        "id": "scholarship_sales_goal",
+        "label": "Scholarship goal",
+        "default": 1000
+      }
+    ]
   }
 ]

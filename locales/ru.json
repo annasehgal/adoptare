@@ -351,7 +351,7 @@
       "adding_to_cart": "Добавление...",
       "added_to_cart": "Товар добавлен в корзину",
       "add_to_cart_error": "Возникла ошибка при добавлении в корзину",
-      "quantity_error_max": "Максимальное количество этого товара — {{ maximum }}",
+      "quantity_error_max": "Максимальное количество этого товара: {{ maximum }}",
       "sold_out": "Продано",
       "unavailable": "Недоступно",
       "quantity": "Количество",

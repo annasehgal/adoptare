@@ -26,7 +26,7 @@ export function trapFocus(container) {
   // Gather focusable elements.
   const focusable = getFocusableElements(container);
   if (!focusable.length) {
-    // If nothing is focusable, just abort—no need to trap.
+    // If nothing is focusable, just abort, no need to trap.
     return;
   }
 

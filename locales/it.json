@@ -296,7 +296,7 @@
       "subtext": "Il tuo buono regalo",
       "shop_link": "Visita il negozio online",
       "add_to_apple_wallet": "Aggiungi a Apple Wallet",
-      "qr_image_alt": "Codice QR — scansiona per riscattare il buono regalo",
+      "qr_image_alt": "Codice QR, scansiona per riscattare il buono regalo",
       "copy_code": "Copia codice del buono regalo",
       "expiration_date": "Scade il giorno {{ expires_on }}",
       "copy_code_success": "Codice copiato correttamente",

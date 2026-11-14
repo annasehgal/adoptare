@@ -178,7 +178,7 @@ class QuickOrderListComponent extends Component {
       url: newURL,
     });
     this.#scrollToTopOfSection();
-    // Morph preserves focus on the pagination button — defer focus to override it
+    // Morph preserves focus on the pagination button, defer focus to override it
     // after the morph and any MutationObserver callbacks have settled.
     requestAnimationFrame(() => this.#focusFirstQuantityInput());
   }

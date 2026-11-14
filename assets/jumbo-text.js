@@ -91,7 +91,7 @@ class JumboText extends Component {
 
     // The second pass refines the font size based on actual rendered width.
     // The -0.15 was chosen by trial and error. It doesn't influence large font sizes much, but helps smaller ones fit better.
-    // Use Math.min to ensure we never increase beyond the first pass — font rendering is not
+    // Use Math.min to ensure we never increase beyond the first pass, font rendering is not
     // perfectly proportional (scaling by 2x doesn't always produce exactly 2x wider text due
     // to pixel rounding), so the second pass can overshoot.
     const secondPassFontSize = Math.min(

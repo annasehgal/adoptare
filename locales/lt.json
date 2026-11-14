@@ -302,7 +302,7 @@
       "subtext": "Jūsų dovanų kortelė",
       "shop_link": "Apsilankyti internetinėje parduotuvėje",
       "add_to_apple_wallet": "Pridėti prie „Apple Wallet“",
-      "qr_image_alt": "QR kodas — nuskaitykite ir panaudokite dovanų kortelę",
+      "qr_image_alt": "QR kodas, nuskaitykite ir panaudokite dovanų kortelę",
       "copy_code": "Kopijuoti dovanų kortelės kodą",
       "expiration_date": "Baigs galioti {{ expires_on }}",
       "copy_code_success": "Kodą pavyko nukopijuoti",

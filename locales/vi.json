@@ -290,7 +290,7 @@
       "subtext": "Thẻ quà tặng của bạn",
       "shop_link": "Truy cập cửa hàng trực tuyến",
       "add_to_apple_wallet": "Thêm vào Apple Wallet",
-      "qr_image_alt": "Mã QR — quét để đổi thẻ quà tặng",
+      "qr_image_alt": "Mã QR, quét để đổi thẻ quà tặng",
       "copy_code": "Sao chép mã thẻ quà tặng",
       "expiration_date": "Hết hạn vào {{ expires_on }}",
       "copy_code_success": "Đã sao chép mã thành công",

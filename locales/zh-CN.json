@@ -290,7 +290,7 @@
       "subtext": "您的礼品卡",
       "shop_link": "访问在线商店",
       "add_to_apple_wallet": "添加到 Apple Wallet",
-      "qr_image_alt": "二维码 — 扫描兑换礼品卡",
+      "qr_image_alt": "二维码，扫描兑换礼品卡",
       "copy_code": "复制礼品卡代码",
       "expiration_date": "过期日期：{{ expires_on }}",
       "copy_code_success": "已成功复制代码",

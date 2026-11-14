@@ -290,7 +290,7 @@
       "subtext": "기프트 카드",
       "shop_link": "온라인 스토어 방문",
       "add_to_apple_wallet": "Apple Wallet에 추가",
-      "qr_image_alt": "QR 코드 — 스캔하여 기프트 카드 사용",
+      "qr_image_alt": "QR 코드, 스캔하여 기프트 카드 사용",
       "copy_code": "기프트 카드 코드 복사",
       "expiration_date": "만료: {{ expires_on }}",
       "copy_code_success": "코드 복사 완료",
