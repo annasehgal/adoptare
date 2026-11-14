@@ -1,4 +1,6 @@
 local-version-backup
+# Local planning notes (not committed)
+ADOPTARE-LOCAL-TODO.md
 # OS files
 .DS_Store
 .AppleDouble
