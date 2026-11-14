@@ -464,8 +464,7 @@
     </div>
     <div class="waitlist-form-wrap">
       <div class="waitlist-form-label">Join the waitlist</div>
-      {% assign waitlist_return_to = routes.root_url | append: '#waitlist' %}
-      {% form 'customer', id: 'waitlist-form', class: 'waitlist-form', return_to: waitlist_return_to %}
+      {% form 'customer', id: 'waitlist-form', class: 'waitlist-form' %}
         <input type="hidden" name="contact[tags]" value="adoptare-waitlist">
         <label class="visually-hidden" for="waitlist-email">Email address</label>
         <input class="waitlist-input" id="waitlist-email" type="email" name="contact[email]" value="{{ form.email | escape }}" placeholder="Your email address" autocomplete="email" autocapitalize="off" spellcheck="false" required aria-describedby="waitlist-status waitlist-footnote" {% if form.posted_successfully? %}hidden{% endif %}>
@@ -1239,58 +1238,6 @@ These sweatpants have a 90s vibe, with thick fleece and a roomy, street-style fi
 
   // Forms
   async function post(data){const response=await fetch('https://formspree.io/f/meepbjwb',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});if(!response.ok)throw new Error('Submission failed');return response;}
-
-  // Waitlist, Shopify's native customer form is the server-side persistence layer.
-  (function(){
-    const form=document.getElementById('waitlist-form');
-    if(!form)return;
-    const input=document.getElementById('waitlist-email');
-    const button=document.getElementById('waitlist-submit');
-    const status=document.getElementById('waitlist-status');
-    const defaultLabel=button.textContent;
-
-    function setStatus(message,state){
-      status.textContent=message;
-      status.dataset.state=state||'';
-    }
-
-    form.addEventListener('submit',async function(event){
-      event.preventDefault();
-      if(form.dataset.submitting==='true')return;
-      input.value=input.value.trim();
-      input.removeAttribute('aria-invalid');
-
-      if(!input.checkValidity()){
-        input.setAttribute('aria-invalid','true');
-        setStatus('Enter a valid email address to join the waitlist.','error');
-        input.focus();
-        return;
-      }
-
-      form.dataset.submitting='true';
-      button.disabled=true;
-      button.textContent='Joining...';
-      setStatus('Adding you to the list…','');
-
-      try{
-        const response=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'text/html'},redirect:'follow'});
-        const responseUrl=new URL(response.url,window.location.href);
-        const html=await response.text();
-        const returnedStatus=new DOMParser().parseFromString(html,'text/html').querySelector('#waitlist-status');
-        const postedSuccessfully=response.ok&&(responseUrl.searchParams.get('customer_posted')==='true'||returnedStatus?.dataset.state==='success');
-        if(!postedSuccessfully)throw new Error('Waitlist submission was not accepted.');
-        setStatus("You're signed up! Thank you for joining the Adoptare waitlist.",'success');
-        input.hidden=true;
-        button.hidden=true;
-      }catch(error){
-        setStatus('We could not confirm your signup. Please try again.','error');
-        button.disabled=false;
-        button.textContent=defaultLabel;
-      }finally{
-        form.dataset.submitting='false';
-      }
-    });
-  })();
 
   async function submitForm(){
     const btn=document.getElementById('submit-btn'),msg=document.getElementById('form-msg');
