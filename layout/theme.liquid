@@ -246,8 +246,9 @@
   .waitlist-submit{display:flex;align-items:center;justify-content:center;min-height:3rem;background:var(--white);color:var(--black);padding:0.9rem 2rem;font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;cursor:pointer;border:none;transition:background 0.2s, color 0.2s;}
   .waitlist-submit:hover:not(:disabled){background:var(--accent);}
   .waitlist-submit:disabled{cursor:wait;opacity:0.7;}
-  .waitlist-status{min-height:1.25rem;margin:0.25rem 0 0;color:var(--muted);font-size:0.72rem;line-height:1.5;}
+  .waitlist-status{display:flex;align-items:flex-start;gap:0.5rem;min-height:1.25rem;margin:0.25rem 0 0;color:var(--muted);font-size:0.72rem;line-height:1.5;}
   .waitlist-status[data-state='success']{color:var(--accent);}
+  .waitlist-status[data-state='success']::before{content:'✓';display:inline-flex;align-items:center;justify-content:center;width:1.1rem;height:1.1rem;border:1px solid currentColor;border-radius:50%;flex:0 0 auto;font-size:0.7rem;font-weight:700;line-height:1;}
   .waitlist-status[data-state='error']{color:#e87070;}
   .waitlist-footnote{margin-top:1rem;color:#777;font-size:0.65rem;line-height:1.5;}
   .visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;}
@@ -468,7 +469,7 @@
         <label class="visually-hidden" for="waitlist-email">Email address</label>
         <input class="waitlist-input" id="waitlist-email" type="email" name="contact[email]" value="{{ form.email }}" placeholder="Your email address" autocomplete="email" autocapitalize="off" spellcheck="false" required aria-describedby="waitlist-status waitlist-footnote">
         <button class="waitlist-submit" id="waitlist-submit" type="submit">Join the Waitlist</button>
-        <div class="waitlist-status" id="waitlist-status" role="status" aria-live="polite">
+        <div class="waitlist-status" id="waitlist-status" role="status" aria-live="polite" data-state="{% if form.posted_successfully? %}success{% elsif form.errors %}error{% endif %}">
           {%- if form.posted_successfully? -%}
             You're on the waitlist! Thank you for your interest in Adoptare.
           {%- elsif form.errors -%}
