@@ -470,12 +470,12 @@
         <button class="waitlist-submit" id="waitlist-submit" type="submit">Join the Waitlist</button>
         <div class="waitlist-status" id="waitlist-status" role="status" aria-live="polite">
           {%- if form.posted_successfully? -%}
-            You're on the list. We'll be in touch when the next chapter begins.
+            You're on the waitlist! Thank you for your interest in Adoptare.
           {%- elsif form.errors -%}
             {{ form.errors | default_errors }}
           {%- endif -%}
         </div>
-        <p class="waitlist-footnote" id="waitlist-footnote">By joining, you agree to receive occasional Adoptare updates. Unsubscribe anytime.</p>
+        <p class="waitlist-footnote" id="waitlist-footnote">This signup is for waitlist updates only. Marketing emails require separate consent.</p>
       {% endform %}
     </div>
   </div>
@@ -1293,7 +1293,7 @@ These sweatpants have a 90s vibe, with thick fleece and a roomy, street-style fi
         const postedSuccessfully=response.ok&&responseUrl.searchParams.get('customer_posted')==='true';
         if(!postedSuccessfully)throw new Error('Waitlist submission was not accepted.');
         rememberEmail(email);
-        setStatus("You're on the list. We'll be in touch when the next chapter begins.",'success');
+        setStatus("You're on the waitlist! Thank you for your interest in Adoptare.",'success');
         button.textContent='You’re In';
       }catch(error){
         // Let Shopify's native form flow handle challenge-protected responses.
